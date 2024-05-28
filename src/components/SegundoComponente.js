@@ -38,71 +38,78 @@ const VersionComponent = () => {
   }, [finalUrl]);
 
   return (
-    <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
-        <table style={{ border: '1px solid black', borderCollapse: 'collapse', width: '48%' }}>
-          <thead>
-            <tr>
-              <th style={{ border: '1px solid black', padding: '4px' }}>UAT</th>
-            </tr>
-          </thead>
-          <tbody>
-            {urlsUat.map(({ name, url }) => (
-              <tr key={url}>
-                <td style={{ border: '1px solid black', padding: '4px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span>{name}</span>
-                  <button onClick={() => handleButtonClick(url)}>Select</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <table style={{ border: '1px solid black', borderCollapse: 'collapse', width: '48%' }}>
-          <thead>
-            <tr>
-              <th style={{ border: '1px solid black', padding: '4px' }}>Production</th>
-            </tr>
-          </thead>
-          <tbody>
-            {urlsProd.map(({ name, url }) => (
-              <tr key={url}>
-                <td style={{ border: '1px solid black', padding: '4px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span>{name}</span>
-                  <button onClick={() => handleButtonClick(url)}>Select</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      {finalUrl && (
-        <div>
-          Selected URL: {finalUrl}
-        </div>
-      )}
-      {version ? (
-        <div>
-          <h2>Version Information</h2>
+    
+    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1cm' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', width: '48%' }}>
+        <div style={{ overflowY: 'scroll', maxHeight: '200px', marginBottom: '20px' }}>
           <table style={{ border: '1px solid black', borderCollapse: 'collapse', width: '100%' }}>
             <thead>
               <tr>
-                <th style={{ border: '1px solid black', padding: '4px' }}>Key</th>
-                <th style={{ border: '1px solid black', padding: '4px' }}>Value</th>
+                <th style={{ border: '1px solid black', padding: '4px' }}>UAT</th>
               </tr>
             </thead>
             <tbody>
-              {Object.entries(version).map(([key, value]) => (
-                <tr key={key}>
-                  <td style={{ border: '1px solid black', padding: '4px' }}>{key}</td>
-                  <td style={{ border: '1px solid black', padding: '4px' }}>{value.toString()}</td>
+              {urlsUat.map(({ name, url }) => (
+                <tr key={url}>
+                  <td style={{ border: '1px solid black', padding: '4px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span>{name}</span>
+                    <button onClick={() => handleButtonClick(url)}>Select</button>
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-      ) : (
-        finalUrl ? <p>Loading...</p> : <p>Please select a URL to fetch version information.</p>
-      )}
+        <div style={{ overflowY: 'scroll', maxHeight: '200px' }}>
+          <table style={{ border: '1px solid black', borderCollapse: 'collapse', width: '100%' }}>
+            <thead>
+              <tr>
+                <th style={{ border: '1px solid black', padding: '4px' }}>Production</th>
+              </tr>
+            </thead>
+            <tbody>
+              {urlsProd.map(({ name, url }) => (
+                <tr key={url}>
+                  <td style={{ border: '1px solid black', padding: '4px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span>{name}</span>
+                    <button onClick={() => handleButtonClick(url)}>Select</button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div style={{ width: '48%' }}>
+        {finalUrl && (
+          <div>
+            Selected URL: {finalUrl}
+          </div>
+        )}
+        {version ? (
+          <div>
+            <h3>Version Information</h3>
+            <table style={{ border: '1px solid black', borderCollapse: 'collapse', width: '100%' }}>
+              <thead>
+                <tr>
+                  <th style={{ border: '1px solid black', padding: '4px' }}>Key</th>
+                  <th style={{ border: '1px solid black', padding: '4px' }}>Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.entries(version).map(([key, value]) => (
+                  <tr key={key}>
+                    <td style={{ border: '1px solid black', padding: '4px' }}>{key}</td>
+                    <td style={{ border: '1px solid black', padding: '4px' }}>{value.toString()}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          finalUrl ? <p>Loading...</p> : <p>Please select a URL to fetch version information.</p>
+        )}
+      </div>
     </div>
   );
 };
