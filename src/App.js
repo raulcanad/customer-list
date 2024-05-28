@@ -1,12 +1,10 @@
-import logo from './logo.svg';
 import './App.css';
 import VersionComponent from './components/SegundoComponente';
-
+import baseball from './galery/baseball.png'
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+      <header className="App-header" style={{ backgroundImage: `url(${baseball})` }} >
         <p>
           Website Versions By customer
         </p>

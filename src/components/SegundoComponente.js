@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+
 const VersionComponent = () => {
   const [uatVersion, setUatVersion] = useState(null);
   const [prodVersion, setProdVersion] = useState(null);
@@ -83,11 +84,11 @@ const VersionComponent = () => {
           <option key={index} value={index}>{customer.name}</option>
         ))}
       </select>
-      <div style={{ maxHeight: '400px', marginTop: '10px' }}>
+      <div style={{maxHeight: '400px', marginTop: '10px' }}>
         <table style={{ border: '1px solid black', borderCollapse: 'collapse', width: '100%' }}>
           <thead>
             <tr>
-              <th style={{ border: '1px solid black', padding: '4px' }}></th>
+              <th style={{ border: '1px solid black', padding: '4px' }}>Key</th>
               <th style={{ border: '1px solid black', padding: '4px' }}>UAT Value</th>
               <th style={{ border: '1px solid black', padding: '4px' }}>Production Value</th>
             </tr>
