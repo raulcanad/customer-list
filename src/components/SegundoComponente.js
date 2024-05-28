@@ -1,30 +1,11 @@
 import React, { useState } from 'react';
-
+import { urlsUat, urlsProd } from './urls';
+import './VersionComponent.css'; 
 
 const VersionComponent = () => {
   const [uatVersion, setUatVersion] = useState(null);
   const [prodVersion, setProdVersion] = useState(null);
   const [selectedCustomerIndex, setSelectedCustomerIndex] = useState(null);
-
-  const urlsUat = [
-    { name: 'Zamb', url: 'https://www-zamb-ssb-ua.zamba.co/version.json' },
-    { name: 'Talo', url: 'https://www-talo-srp-ua.optimahq.com/version.json' },
-    { name: '10bet', url: 'https://www-tenb-ssb-uat.playingops.com/version.json' },
-    { name: 'Ballers', url: 'https://www-ball-ssb-uc.ballerspr.com/version.json' },
-    { name: 'Bson', url: 'https://www-bson-ssb-ua.betsson.fr/version.json' },
-    { name: 'Pent', url: 'https://www-xlbe-ssb-uat.uatsecure.com/version.json' },
-    { name: 'Dazu', url: 'https://www-dazu-ssb-uat.uatsecure.com/version.json' },
-  ];
-
-  const urlsProd = [
-    { name: 'Zamb', url: 'https://www-zamb-ssb-pr.zamba.co/version.json' },
-    { name: 'Talo', url: 'https://www-talo-ssb-pr.optimahq.com/version.json' },
-    { name: '10bet', url: 'https://www-tenb-ssb-pr.10bet.mx/version.json' },
-    { name: 'Ballers', url: 'https://www-ball-ssb-pr.ballerspr.com/version.json' },
-    { name: 'Bson', url: 'https://www-bson-ssb-pr.betsson.fr/version.json' },
-    { name: 'Pent', url: 'https://www-pent-ssb-pr.ncinteg-peg.tech/version.json' },
-    { name: 'Dazu', url: 'https://www-dazu-ssb-pr.daznbet.com/version.json' },
-  ];
 
   const handleSelectChange = (event) => {
     const index = event.target.value;
@@ -77,38 +58,38 @@ const VersionComponent = () => {
   };
 
   return (
-    <div style={{ marginBottom: '1cm' }}>
+    <div className="select-wrapper">
       <select onChange={handleSelectChange} value={selectedCustomerIndex !== null ? selectedCustomerIndex : ''}>
         <option value="" disabled>Select a customer</option>
         {urlsUat.map((customer, index) => (
           <option key={index} value={index}>{customer.name}</option>
         ))}
       </select>
-      <div style={{maxHeight: '400px', marginTop: '10px' }}>
-        <table style={{ border: '1px solid black', borderCollapse: 'collapse', width: '100%' }}>
+      <div className="data-table-wrapper">
+        <table className="data-table">
           <thead>
             <tr>
-              <th style={{ border: '1px solid black', padding: '4px' }}>Key</th>
-              <th style={{ border: '1px solid black', padding: '4px' }}>UAT Value</th>
-              <th style={{ border: '1px solid black', padding: '4px' }}>Production Value</th>
+              <th>Key</th>
+              <th>UAT Value</th>
+              <th>Production Value</th>
             </tr>
           </thead>
           <tbody>
             {uatVersion && prodVersion ? (
               Object.keys({ ...uatVersion, ...prodVersion }).map(key => (
                 <tr key={key}>
-                  <td style={{ border: '1px solid black', padding: '4px' }}>{key}</td>
-                  <td style={{ border: '1px solid black', padding: '4px' }}>
+                  <td>{key}</td>
+                  <td>
                     {typeof uatVersion[key] === 'object' ? JSON.stringify(uatVersion[key]) : uatVersion[key]}
                   </td>
-                  <td style={{ border: '1px solid black', padding: '4px' }}>
+                  <td>
                     {typeof prodVersion[key] === 'object' ? JSON.stringify(prodVersion[key]) : prodVersion[key]}
                   </td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan="3" style={{ border: '1px solid black', padding: '4px', textAlign: 'center' }}>
+                <td colSpan="3">
                   {uatVersion === null && prodVersion === null ? 'Please select a URL to fetch version information.' : 'Loading...'}
                 </td>
               </tr>
