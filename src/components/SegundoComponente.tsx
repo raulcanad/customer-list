@@ -1,19 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, ChangeEvent } from 'react';
 import { urlsUat, urlsProd } from './urls';
-import './VersionComponent.css'; 
+import './VersionComponent.css';
 
-const VersionComponent = () => {
-  const [uatVersion, setUatVersion] = useState(null);
-  const [prodVersion, setProdVersion] = useState(null);
-  const [selectedCustomerIndex, setSelectedCustomerIndex] = useState(null);
+interface VersionData {
+  [key: string]: any;
+}
 
-  const handleSelectChange = (event) => {
-    const index = event.target.value;
+const VersionComponent: React.FC = () => {
+  const [uatVersion, setUatVersion] = useState<VersionData | null>(null);
+  const [prodVersion, setProdVersion] = useState<VersionData | null>(null);
+  const [selectedCustomerIndex, setSelectedCustomerIndex] = useState<number | null>(null);
+
+  const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    const index = parseInt(event.target.value, 10);
     setSelectedCustomerIndex(index);
     handleButtonClick(urlsUat[index].url, urlsProd[index].url);
   };
 
-  const handleButtonClick = (uatUrl, prodUrl) => {
+  const handleButtonClick = (uatUrl: string, prodUrl: string) => {
     setUatVersion(null);
     setProdVersion(null);
 
@@ -35,8 +39,8 @@ const VersionComponent = () => {
       .catch(error => console.error('Error fetching the Production version:', error));
   };
 
-  const filterSubmodules = data => {
-    const cleanData = {};
+  const filterSubmodules = (data: VersionData): VersionData => {
+    const cleanData: VersionData = {};
     for (const key in data) {
       if (!key.startsWith('_')) {
         cleanData[key] = data[key];
@@ -45,9 +49,9 @@ const VersionComponent = () => {
     return cleanData;
   };
 
-  const fillMissingFields = prodData => {
+  const fillMissingFields = (prodData: VersionData) => {
     if (uatVersion && prodData) {
-      const mergedData = { ...uatVersion };
+      const mergedData: VersionData = { ...uatVersion };
       for (const key in prodData) {
         if (!(key in mergedData)) {
           mergedData[key] = '';
@@ -89,7 +93,7 @@ const VersionComponent = () => {
               ))
             ) : (
               <tr>
-                <td colSpan="3">
+                <td colSpan={3}>
                   {uatVersion === null && prodVersion === null ? 'Please select a URL to fetch version information.' : 'Loading...'}
                 </td>
               </tr>
