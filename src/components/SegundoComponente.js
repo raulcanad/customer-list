@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 const VersionComponent = () => {
-  const [version, setVersion] = useState(null);
-  const [finalUrl, setFinalUrl] = useState(null);
+  const [uatVersion, setUatVersion] = useState(null);
+  const [prodVersion, setProdVersion] = useState(null);
+  const [selectedCustomerIndex, setSelectedCustomerIndex] = useState(null);
 
   const urlsUat = [
     { name: 'Zamb', url: 'https://www-zamb-ssb-ua.zamba.co/version.json' },
@@ -24,91 +25,95 @@ const VersionComponent = () => {
     { name: 'Dazu', url: 'https://www-dazu-ssb-pr.daznbet.com/version.json' },
   ];
 
-  const handleButtonClick = (url) => {
-    setFinalUrl(url);
+  const handleSelectChange = (event) => {
+    const index = event.target.value;
+    setSelectedCustomerIndex(index);
+    handleButtonClick(urlsUat[index].url, urlsProd[index].url);
   };
 
-  useEffect(() => {
-    if (finalUrl) {
-      fetch(finalUrl)
-        .then(response => response.json())
-        .then(data => setVersion(data))
-        .catch(error => console.error('Error fetching the version:', error));
+  const handleButtonClick = (uatUrl, prodUrl) => {
+    setUatVersion(null);
+    setProdVersion(null);
+
+    fetch(uatUrl)
+      .then(response => response.json())
+      .then(data => {
+        const cleanData = filterSubmodules(data);
+        setUatVersion(cleanData);
+      })
+      .catch(error => console.error('Error fetching the UAT version:', error));
+
+    fetch(prodUrl)
+      .then(response => response.json())
+      .then(data => {
+        const cleanData = filterSubmodules(data);
+        setProdVersion(cleanData);
+        fillMissingFields(cleanData);
+      })
+      .catch(error => console.error('Error fetching the Production version:', error));
+  };
+
+  const filterSubmodules = data => {
+    const cleanData = {};
+    for (const key in data) {
+      if (!key.startsWith('_')) {
+        cleanData[key] = data[key];
+      }
     }
-  }, [finalUrl]);
+    return cleanData;
+  };
+
+  const fillMissingFields = prodData => {
+    if (uatVersion && prodData) {
+      const mergedData = { ...uatVersion };
+      for (const key in prodData) {
+        if (!(key in mergedData)) {
+          mergedData[key] = '';
+        }
+      }
+      setUatVersion(mergedData);
+    }
+  };
 
   return (
-    
-    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1cm' }}>
-      <div style={{ display: 'flex', flexDirection: 'column', width: '48%' }}>
-        <div style={{ overflowY: 'scroll', maxHeight: '200px', marginBottom: '20px' }}>
-          <table style={{ border: '1px solid black', borderCollapse: 'collapse', width: '100%' }}>
-            <thead>
-              <tr>
-                <th style={{ border: '1px solid black', padding: '4px' }}>UAT</th>
-              </tr>
-            </thead>
-            <tbody>
-              {urlsUat.map(({ name, url }) => (
-                <tr key={url}>
-                  <td style={{ border: '1px solid black', padding: '4px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span>{name}</span>
-                    <button onClick={() => handleButtonClick(url)}>Select</button>
+    <div style={{ marginBottom: '1cm' }}>
+      <select onChange={handleSelectChange} value={selectedCustomerIndex !== null ? selectedCustomerIndex : ''}>
+        <option value="" disabled>Select a customer</option>
+        {urlsUat.map((customer, index) => (
+          <option key={index} value={index}>{customer.name}</option>
+        ))}
+      </select>
+      <div style={{ maxHeight: '400px', marginTop: '10px' }}>
+        <table style={{ border: '1px solid black', borderCollapse: 'collapse', width: '100%' }}>
+          <thead>
+            <tr>
+              <th style={{ border: '1px solid black', padding: '4px' }}></th>
+              <th style={{ border: '1px solid black', padding: '4px' }}>UAT Value</th>
+              <th style={{ border: '1px solid black', padding: '4px' }}>Production Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            {uatVersion && prodVersion ? (
+              Object.keys({ ...uatVersion, ...prodVersion }).map(key => (
+                <tr key={key}>
+                  <td style={{ border: '1px solid black', padding: '4px' }}>{key}</td>
+                  <td style={{ border: '1px solid black', padding: '4px' }}>
+                    {typeof uatVersion[key] === 'object' ? JSON.stringify(uatVersion[key]) : uatVersion[key]}
+                  </td>
+                  <td style={{ border: '1px solid black', padding: '4px' }}>
+                    {typeof prodVersion[key] === 'object' ? JSON.stringify(prodVersion[key]) : prodVersion[key]}
                   </td>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <div style={{ overflowY: 'scroll', maxHeight: '200px' }}>
-          <table style={{ border: '1px solid black', borderCollapse: 'collapse', width: '100%' }}>
-            <thead>
+              ))
+            ) : (
               <tr>
-                <th style={{ border: '1px solid black', padding: '4px' }}>Production</th>
+                <td colSpan="3" style={{ border: '1px solid black', padding: '4px', textAlign: 'center' }}>
+                  {uatVersion === null && prodVersion === null ? 'Please select a URL to fetch version information.' : 'Loading...'}
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {urlsProd.map(({ name, url }) => (
-                <tr key={url}>
-                  <td style={{ border: '1px solid black', padding: '4px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span>{name}</span>
-                    <button onClick={() => handleButtonClick(url)}>Select</button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div style={{ width: '48%' }}>
-        {finalUrl && (
-          <div>
-            Selected URL: {finalUrl}
-          </div>
-        )}
-        {version ? (
-          <div>
-            <h3>Version Information</h3>
-            <table style={{ border: '1px solid black', borderCollapse: 'collapse', width: '100%' }}>
-              <thead>
-                <tr>
-                  <th style={{ border: '1px solid black', padding: '4px' }}>Key</th>
-                  <th style={{ border: '1px solid black', padding: '4px' }}>Value</th>
-                </tr>
-              </thead>
-              <tbody>
-                {Object.entries(version).map(([key, value]) => (
-                  <tr key={key}>
-                    <td style={{ border: '1px solid black', padding: '4px' }}>{key}</td>
-                    <td style={{ border: '1px solid black', padding: '4px' }}>{value.toString()}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        ) : (
-          finalUrl ? <p>Loading...</p> : <p>Please select a URL to fetch version information.</p>
-        )}
+            )}
+          </tbody>
+        </table>
       </div>
     </div>
   );
