@@ -1,6 +1,7 @@
 import React, { useState, useEffect, ChangeEvent } from 'react';
-import { urlsUat, urlsProd } from './urls';
 import './VersionComponent.css';
+import urlsData from './urls.json';
+
 
 interface VersionData {
   [key: string]: any;
@@ -14,6 +15,11 @@ const VersionComponent: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [showSubmodulePopup, setShowSubmodulePopup] = useState<boolean>(false); // State to control the display of the submodule pop-up
   const [showButtonsOnly, setShowButtonsOnly] = useState<boolean>(false); // State to control displaying only buttons
+  // Access the URLs for UAT environment
+  const urlsUat = urlsData.urlsUat;
+
+// Access the URLs for Production environment
+  const urlsProd = urlsData.urlsProd;
 
   useEffect(() => {
     if (selectedCustomerIndex !== null) {
