@@ -2,7 +2,6 @@ import React, { useState, useEffect, ChangeEvent } from 'react';
 import './VersionComponent.css';
 import urlsData from './urls.json';
 
-
 interface VersionData {
   [key: string]: any;
 }
@@ -13,12 +12,10 @@ const VersionComponent: React.FC = () => {
   const [selectedCustomerIndex, setSelectedCustomerIndex] = useState<number | null>(null);
   const [customerSelected, setCustomerSelected] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
-  const [showSubmodulePopup, setShowSubmodulePopup] = useState<boolean>(false); // State to control the display of the submodule pop-up
-  const [showButtonsOnly, setShowButtonsOnly] = useState<boolean>(false); // State to control displaying only buttons
-  // Access the URLs for UAT environment
-  const urlsUat = urlsData.urlsUat;
+  const [showSubmodulePopup, setShowSubmodulePopup] = useState<boolean>(false);
+  const [showButtonsOnly, setShowButtonsOnly] = useState<boolean>(false);
 
-// Access the URLs for Production environment
+  const urlsUat = urlsData.urlsUat;
   const urlsProd = urlsData.urlsProd;
 
   useEffect(() => {
@@ -31,7 +28,6 @@ const VersionComponent: React.FC = () => {
   }, [selectedCustomerIndex]);
 
   useEffect(() => {
-    // Check if submodules are present in either UAT or Prod versions
     if (uatVersion && hasSubmodules(uatVersion)) {
       setShowSubmodulePopup(true);
       setShowButtonsOnly(true);
@@ -47,7 +43,7 @@ const VersionComponent: React.FC = () => {
   const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const index = parseInt(event.target.value, 10);
     setSelectedCustomerIndex(index);
-    setCustomerSelected(true); // Set the flag to true when a customer is selected for the first time
+    setCustomerSelected(true);
   };
 
   const fetchVersions = (uatUrl: string, prodUrl: string) => {
@@ -74,7 +70,7 @@ const VersionComponent: React.FC = () => {
   const hasSubmodules = (data: VersionData): boolean => {
     for (const key in data) {
       if (typeof data[key] === 'object') {
-        return true; // Submodule found
+        return true;
       }
     }
     return false;
@@ -82,7 +78,7 @@ const VersionComponent: React.FC = () => {
 
   return (
     <div className="version-component">
-      {showSubmodulePopup && ( // Conditionally render the submodule pop-up
+      {showSubmodulePopup && (
         <div className="popup">
           <p>Please note that submodules are deployed for this customer. Click the button for more data.</p>
         </div>
@@ -95,19 +91,21 @@ const VersionComponent: React.FC = () => {
           ))}
         </select>
       </div>
-      {customerSelected && ( // Only show the table if a customer has been selected at least once
+      {customerSelected && (
         <div className="data-table-wrapper">
           {loading ? (
             <div>Loading...</div>
           ) : (
             <table className="data-table">
-              <thead>
-                <tr>
-                  <th>DATA</th>
-                  <th>UAT</th>
-                  <th>PROD</th>
-                </tr>
-              </thead>
+              {!showButtonsOnly && (
+                <thead>
+                  <tr>
+                    <th>DATA</th>
+                    <th>UAT</th>
+                    <th>PROD</th>
+                  </tr>
+                </thead>
+              )}
               <tbody>
                 {!showButtonsOnly && uatVersion && prodVersion && Object.keys({ ...uatVersion, ...prodVersion }).map(key => (
                   <tr key={key}>
@@ -120,7 +118,6 @@ const VersionComponent: React.FC = () => {
                     </td>
                   </tr>
                 ))}
-                {/* New row for the link */}
                 {selectedCustomerIndex !== null && (
                   <tr>
                     <td>Link</td>
