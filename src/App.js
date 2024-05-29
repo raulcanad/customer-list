@@ -1,5 +1,5 @@
 import './App.css';
-import VersionComponent from './components/SegundoComponente.tsx';
+import VersionComponent from './components/VersionComponent.tsx';
 
 import baseball from './galery/baseball.png'
 function App() {
