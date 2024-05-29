@@ -25,3 +25,12 @@
     padding: 4px;
     text-align: center;
   }
+  .data-table.no-border {
+    border: none;
+  }
+  
+  .data-table.no-border thead,
+  .data-table.no-border th,
+  .data-table.no-border td {
+    border: none;
+  }

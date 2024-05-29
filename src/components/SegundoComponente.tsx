@@ -96,7 +96,7 @@ const VersionComponent: React.FC = () => {
           {loading ? (
             <div>Loading...</div>
           ) : (
-            <table className="data-table">
+            <table className={`data-table ${showButtonsOnly ? 'no-border' : ''}`}>
               {!showButtonsOnly && (
                 <thead>
                   <tr>
