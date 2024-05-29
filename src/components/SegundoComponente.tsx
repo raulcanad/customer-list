@@ -42,7 +42,7 @@ const VersionComponent: React.FC = () => {
   const filterSubmodules = (data: VersionData): VersionData => {
     const cleanData: VersionData = {};
     for (const key in data) {
-      if (!key.startsWith('_')) {
+      if (Object.prototype.hasOwnProperty.call(data, key) && !key.startsWith('_')) {
         cleanData[key] = data[key];
       }
     }
@@ -53,7 +53,7 @@ const VersionComponent: React.FC = () => {
     if (uatVersion && prodData) {
       const mergedData: VersionData = { ...uatVersion };
       for (const key in prodData) {
-        if (!(key in mergedData)) {
+        if (Object.prototype.hasOwnProperty.call(prodData, key) && !(key in mergedData)) {
           mergedData[key] = '';
         }
       }
@@ -62,40 +62,50 @@ const VersionComponent: React.FC = () => {
   };
 
   return (
-    <div className="select-wrapper">
-      <select onChange={handleSelectChange} value={selectedCustomerIndex !== null ? selectedCustomerIndex : ''}>
-        <option value="" disabled>Select a customer</option>
-        {urlsUat.map((customer, index) => (
-          <option key={index} value={index}>{customer.name}</option>
-        ))}
-      </select>
+    <div className="version-component">
+      <div className="select-wrapper">
+        <select onChange={handleSelectChange} value={selectedCustomerIndex !== null ? selectedCustomerIndex : ''}>
+          <option value="" disabled>Select a customer</option>
+          {urlsUat.map((customer, index) => (
+            <option key={index} value={index}>{customer.name}</option>
+          ))}
+        </select>
+      </div>
       <div className="data-table-wrapper">
         <table className="data-table">
           <thead>
             <tr>
-              <th>Key</th>
-              <th>UAT Value</th>
-              <th>Production Value</th>
+              <th>DATA</th>
+              <th>UAT</th>
+              <th>PROD</th>
             </tr>
           </thead>
           <tbody>
-            {uatVersion && prodVersion ? (
+            {(uatVersion !== null && prodVersion !== null) ? (
               Object.keys({ ...uatVersion, ...prodVersion }).map(key => (
                 <tr key={key}>
                   <td>{key}</td>
                   <td>
-                    {typeof uatVersion[key] === 'object' ? JSON.stringify(uatVersion[key]) : uatVersion[key]}
+                    {key === 'Link' && selectedCustomerIndex !== null ? <button className="button" onClick={() => window.open(urlsUat[selectedCustomerIndex].url, '_blank', 'width=600,height=400')}>UAT</button> : typeof uatVersion[key] === 'object' ? JSON.stringify(uatVersion[key]) : uatVersion[key]}
                   </td>
                   <td>
-                    {typeof prodVersion[key] === 'object' ? JSON.stringify(prodVersion[key]) : prodVersion[key]}
+                    {key === 'Link' && selectedCustomerIndex !== null ? <button className="button" onClick={() => window.open(urlsProd[selectedCustomerIndex].url, '_blank', 'width=600,height=400')}>PROD</button> : typeof prodVersion[key] === 'object' ? JSON.stringify(prodVersion[key]) : prodVersion[key]}
                   </td>
                 </tr>
               ))
             ) : (
               <tr>
                 <td colSpan={3}>
-                  {uatVersion === null && prodVersion === null ? 'Please select a URL to fetch version information.' : 'Loading...'}
+                  {(uatVersion === null && prodVersion === null) ? 'Please select a URL to fetch version information.' : 'Loading...'}
                 </td>
+              </tr>
+            )}
+            {/* New row for the link */}
+            {selectedCustomerIndex !== null && (
+              <tr>
+                <td>Link</td>
+                <td><button className="button" onClick={() => window.open(urlsUat[selectedCustomerIndex].url, '_blank', 'width=600,height=400')}>UAT</button></td>
+                <td><button className="button" onClick={() => window.open(urlsProd[selectedCustomerIndex].url, '_blank', 'width=600,height=400')}>PROD</button></td>
               </tr>
             )}
           </tbody>
