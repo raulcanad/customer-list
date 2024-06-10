@@ -78,6 +78,7 @@ const VersionComponent: React.FC = () => {
 
   return (
     <div className="version-component">
+     <h1 className="title">SPORTSBOOK'S VERSIONS</h1>
       {showSubmodulePopup && (
         <div className="popup">
           <p>Please note that submodules are deployed for this customer. Click the button for more data.</p>

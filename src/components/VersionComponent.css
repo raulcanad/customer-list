@@ -60,3 +60,6 @@
   .data-table td {
     padding: 8px; /* Add padding for better readability */
   }
+  .version-component .title {
+    color: white;
+  }

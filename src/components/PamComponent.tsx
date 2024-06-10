@@ -78,7 +78,7 @@ const PamComponent: React.FC = () => {
 
   return (
     <div className="pam-component">
-      <h1 className="title">UAT Versions</h1>
+      <h1 className="title">PAM'S VERSIONS</h1>
       <div className="select-wrapper">
         <select onChange={handleSelectChange} value={selectedCustomerIndex !== null ? selectedCustomerIndex : ''}>
           <option value="" disabled>Select a customer</option>

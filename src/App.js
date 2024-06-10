@@ -1,13 +1,14 @@
 import './App.css';
-import VersionComponent from './components/VersionComponent.tsx';
-import PamComponent from './components/PamComponent.tsx';
+import ComponentSelector from './components/ComponentSelector.tsx';
 
 
 function App() {
   return (
     <div className="App">
        {/* <VersionComponent/> */}
-       <PamComponent/>
+       {/* <PamComponent/> */}
+       <ComponentSelector/>
+
     </div>
   );
 }
