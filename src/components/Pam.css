@@ -1,3 +1,4 @@
+/* Base styles */
 .select-wrapper {
     margin-bottom: 1cm;
   }
@@ -25,6 +26,7 @@
     padding: 4px;
     text-align: center;
   }
+  
   .data-table.no-border {
     border: none;
   }
@@ -34,20 +36,7 @@
   .data-table.no-border td {
     border: none;
   }
-.pam-component {
-    /* Add other styles here */
-    background-image: url('../gallery/baseball2.jpg'); /* Set the path to your image */
-    background-size: cover; /* Scale the background image to cover the entire container */
-    background-repeat: no-repeat; /* Prevent the background image from repeating */
-    height: 100vh; /* Ensure the component takes up the full height of the viewport */
-    display: flex; /* Use flexbox layout */
-    justify-content: center; /* Center the content horizontally */
-    align-items: center; /* Center the content vertically */
-  }
-  .popup p {
-    color: white;
-  }
-
+  
   .data-table {
     color: white; /* Set text color to white */
   }
@@ -56,10 +45,43 @@
   .data-table td {
     padding: 8px; /* Add padding for better readability */
   }
-
+  
+  /* Pam component */
+  .pam-component {
+    background-image: url('../gallery/pam.jpg'); /* Set the path to your image */
+    background-size: cover; /* Scale the background image to cover the entire container */
+    background-repeat: no-repeat; /* Prevent the background image from repeating */
+    height: 100vh; /* Ensure the component takes up the full height of the viewport */
+    display: flex; /* Use flexbox layout */
+    justify-content: center; /* Center the content horizontally */
+    align-items: center; /* Center the content vertically */
+    position: relative; /* Allow positioning of floating header */
+  }
+  
+  /* Floating header */
+  .pam-component::before {
+    content: "";
+    background-image: url('../gallery/head.png'); /* Set the path to your header image */
+    background-size: contain; /* Ensure the header image scales appropriately */
+    background-repeat: no-repeat; /* Prevent the header image from repeating */
+    position: absolute; /* Position the header absolutely */
+    top: 0; /* Align the header to the top */
+    left: 0; /* Align the header to the left */
+    width: 100%; /* Ensure the header spans the width of the component */
+    height: 150px; /* Set a fixed height for the header */
+    z-index: 10; /* Ensure the header appears above other content */
+  }
+  
+  .popup p {
+    color: white;
+  }
+  .pam-component .title {
+    color: white;
+  }
+  
   /* Background for mobile screens */
-@media (max-width: 768px) {
-    .version-component {
+  @media (max-width: 768px) {
+    .pam-component {
       background-size: cover; /* Ensure the background image covers the entire container */
       background-position: center; /* Center the background image */
     }

@@ -78,32 +78,7 @@ const PamComponent: React.FC = () => {
 
   return (
     <div className="pam-component">
-      {showSubmodulePopup && (
-        <div className="popup">
-          <p>Please note that submodules are deployed in PAM for this customer. Click the button for more data.</p>
-          <table className="data-table">
-            <thead>
-              <tr>
-                <th>DATA</th>
-                <th>UAT</th>
-                <th>PROD</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Release</td>
-                <td>{uatVersion && uatVersion.release}</td>
-                <td>{prodVersion && prodVersion.release}</td>
-              </tr>
-              <tr>
-                <td>Build</td>
-                <td>{uatVersion && uatVersion.build}</td>
-                <td>{prodVersion && prodVersion.build}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      )}
+      <h1 className="title">UAT Versions</h1>
       <div className="select-wrapper">
         <select onChange={handleSelectChange} value={selectedCustomerIndex !== null ? selectedCustomerIndex : ''}>
           <option value="" disabled>Select a customer</option>
@@ -113,12 +88,11 @@ const PamComponent: React.FC = () => {
         </select>
       </div>
       {customerSelected && (
-        <div className="data-table-wrapper">
-          {loading ? (
-            <div>Loading...</div>
-          ) : (
-            <table className={`data-table ${showButtonsOnly ? 'no-border' : ''}`}>
-              {!showButtonsOnly && (
+        <>
+          {showSubmodulePopup && (
+            <div className="popup">
+              <p>Please note that submodules are deployed in PAM for this customer. Click the button for more data.</p>
+              <table className="data-table">
                 <thead>
                   <tr>
                     <th>DATA</th>
@@ -126,38 +100,67 @@ const PamComponent: React.FC = () => {
                     <th>PROD</th>
                   </tr>
                 </thead>
-              )}
-              <tbody>
-                {!showButtonsOnly && uatVersion && prodVersion && (
-                  <>
-                    <tr>
-                      <td>Release</td>
-                      <td>{uatVersion.release}</td>
-                      <td>{prodVersion.release}</td>
-                    </tr>
-                    <tr>
-                      <td>Build</td>
-                      <td>{uatVersion.build}</td>
-                      <td>{prodVersion.build}</td>
-                    </tr>
-                    <tr>
-                      <td>Msg-Version</td>
-                      <td>{uatVersion['msg-version']}</td>
-                      <td>{prodVersion['msg-version']}</td>
-                    </tr>
-                  </>
-                )}
-                {selectedCustomerIndex !== null && (
+                <tbody>
                   <tr>
-                    <td>Link</td>
-                    <td><button className="button" onClick={() => window.open(urlsUat[selectedCustomerIndex].url, '_blank', 'width=600,height=400')}>UAT</button></td>
-                    <td><button className="button" onClick={() => window.open(urlsProd[selectedCustomerIndex].url, '_blank', 'width=600,height=400')}>PROD</button></td>
+                    <td>Release</td>
+                    <td>{uatVersion && uatVersion.release}</td>
+                    <td>{prodVersion && prodVersion.release}</td>
                   </tr>
-                )}
-              </tbody>
-            </table>
+                  <tr>
+                    <td>Build</td>
+                    <td>{uatVersion && uatVersion.build}</td>
+                    <td>{prodVersion && prodVersion.build}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           )}
-        </div>
+          <div className="data-table-wrapper">
+            {loading ? (
+              <div>Loading...</div>
+            ) : (
+              <table className={`data-table ${showButtonsOnly ? 'no-border' : ''}`}>
+                {!showButtonsOnly && (
+                  <thead>
+                    <tr>
+                      <th>DATA</th>
+                      <th>UAT</th>
+                      <th>PROD</th>
+                    </tr>
+                  </thead>
+                )}
+                <tbody>
+                  {!showButtonsOnly && uatVersion && prodVersion && (
+                    <>
+                      <tr>
+                        <td>Release</td>
+                        <td>{uatVersion.release}</td>
+                        <td>{prodVersion.release}</td>
+                      </tr>
+                      <tr>
+                        <td>Build</td>
+                        <td>{uatVersion.build}</td>
+                        <td>{prodVersion.build}</td>
+                      </tr>
+                      <tr>
+                        <td>Msg-Version</td>
+                        <td>{uatVersion['msg-version']}</td>
+                        <td>{prodVersion['msg-version']}</td>
+                      </tr>
+                    </>
+                  )}
+                  {selectedCustomerIndex !== null && (
+                    <tr>
+                      <td>Link</td>
+                      <td><button className="button" onClick={() => window.open(urlsUat[selectedCustomerIndex].url, '_blank', 'width=600,height=400')}>UAT</button></td>
+                      <td><button className="button" onClick={() => window.open(urlsProd[selectedCustomerIndex].url, '_blank', 'width=600,height=400')}>PROD</button></td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            )}
+          </div>
+        </>
       )}
     </div>
   );
