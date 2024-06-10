@@ -1,0 +1,8 @@
+{
+    "urlsUat": [
+      { "name": "10bet", "url": "https://www-tenb-srp-uat.playingops.com/version.json" }
+    ],
+    "urlsProd": [
+      { "name": "10bet", "url": "https://www-tenb-srp-pr.10bet.mx/version.json" }
+    ]
+  }

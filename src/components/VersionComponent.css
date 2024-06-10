@@ -34,3 +34,29 @@
   .data-table.no-border td {
     border: none;
   }
+.version-component {
+    /* Add other styles here */
+    background-image: url('../gallery/baseball.png'); /* Set the path to your image */
+    background-size: cover; /* Scale the background image to cover the entire container */
+    background-repeat: no-repeat; /* Prevent the background image from repeating */
+    height: 100vh; /* Ensure the component takes up the full height of the viewport */
+    display: flex; /* Use flexbox layout */
+    justify-content: center; /* Center the content horizontally */
+    align-items: center; /* Center the content vertically */
+  }
+/* Background for mobile screens */
+@media (max-width: 768px) {
+    .version-component {
+      background-size: cover; /* Ensure the background image covers the entire container */
+      background-position: center; /* Center the background image */
+    }
+  }
+
+  .data-table {
+    color: white; /* Set text color to white */
+  }
+  
+  .data-table th,
+  .data-table td {
+    padding: 8px; /* Add padding for better readability */
+  }
