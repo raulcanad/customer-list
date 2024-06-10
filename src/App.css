@@ -8,6 +8,12 @@
     flex-direction: column;
     align-items: center;
   }
+  .pam-component {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
 .link {
     color: #007bff; /* or any other color you prefer */
