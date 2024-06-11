@@ -47,7 +47,7 @@
   }
 /* Background for mobile screens */
 @media (max-width: 768px) {
-    .version-component {
+    .screen-component {
       background-size: cover; /* Ensure the background image covers the entire container */
       background-position: center; /* Center the background image */
     }
