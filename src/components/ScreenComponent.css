@@ -36,6 +36,7 @@
   }
 .screen-component {
     /* Add other styles here */
+    flex-direction: column;
     background-image: url('../gallery/screen.jpg'); /* Set the path to your image */
     background-size: cover; /* Scale the background image to cover the entire container */
     background-repeat: no-repeat; /* Prevent the background image from repeating */
@@ -60,6 +61,6 @@
   .data-table td {
     padding: 8px; /* Add padding for better readability */
   }
-  .version-component .title {
+  .screen-component .title {
     color: white;
   }
