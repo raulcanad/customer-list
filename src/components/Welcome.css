@@ -7,7 +7,7 @@
     background-size: cover;
     background-position: center;
     opacity: 0;
-    transition: opacity 2s ease-in-out; /* Gradually appear over 2 seconds */
+    transition: opacity 1s ease-in-out; /* Gradually appear over 2 seconds */
   }
   .welcome-container::before {
     content: "";
