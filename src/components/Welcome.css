@@ -1,0 +1,33 @@
+.welcome-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url(../gallery/fans.jpg);
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 2s ease-in-out; /* Gradually appear over 2 seconds */
+  }
+  .welcome-container::before {
+    content: "";
+    background-image: url('../gallery/head.png'); /* Set the path to your header image */
+    background-size: contain; /* Ensure the header image scales appropriately */
+    background-repeat: no-repeat; /* Prevent the header image from repeating */
+    position: absolute; /* Position the header absolutely */
+    top: 0; /* Align the header to the top */
+    left: 0; /* Align the header to the left */
+    width: 100%; /* Ensure the header spans the width of the component */
+    height: 150px; /* Set a fixed height for the header */
+    z-index: 10; /* Ensure the header appears above other content */
+  }
+  
+  .welcome-container.visible {
+    opacity: 1;
+  }
+  
+  h2 {
+    color: white;
+    font-size: 2rem;
+    text-align: center;
+  }

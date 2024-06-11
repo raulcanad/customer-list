@@ -36,7 +36,7 @@
   }
 .version-component {
     /* Add other styles here */
-    background-image: url('../gallery/baseball.png'); /* Set the path to your image */
+    background-image: url('../gallery/baseball.jpg'); /* Set the path to your image */
     background-size: cover; /* Scale the background image to cover the entire container */
     background-repeat: no-repeat; /* Prevent the background image from repeating */
     height: 100vh; /* Ensure the component takes up the full height of the viewport */

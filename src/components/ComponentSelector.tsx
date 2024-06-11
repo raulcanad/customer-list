@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import VersionComponent from './VersionComponent.tsx';
 import PamComponent from './PamComponent.tsx';
 import './ComponentSelector.css';
+import Welcome from './Welcome.tsx';
 
 const ComponentSelector: React.FC = () => {
   const [selectedComponent, setSelectedComponent] = useState<string>('');
@@ -18,11 +19,12 @@ const ComponentSelector: React.FC = () => {
       <div className={`fullscreen ${isHomeSelected ? 'centered' : ''}`}>
         <div className={`select-wrapper ${isHomeSelected ? 'top-right home-selected' : 'top-right'}`}>
           <select className="select-box" value={selectedComponent} onChange={handleSelectChange}>
-            <option value="">HOME</option>
+            <option value="welcome">HOME</option>
             <option value="version">SPORTSBOOK</option>
             <option value="pam">PAM</option>
           </select>
         </div>
+        {selectedComponent === 'welcome' && <Welcome/> }
         {selectedComponent === 'version' && <VersionComponent />}
         {selectedComponent === 'pam' && <PamComponent />}
       </div>

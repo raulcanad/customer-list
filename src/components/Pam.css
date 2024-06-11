@@ -58,19 +58,6 @@
     position: relative; /* Allow positioning of floating header */
   }
   
-  /* Floating header */
-  .pam-component::before {
-    content: "";
-    background-image: url('../gallery/head.png'); /* Set the path to your header image */
-    background-size: contain; /* Ensure the header image scales appropriately */
-    background-repeat: no-repeat; /* Prevent the header image from repeating */
-    position: absolute; /* Position the header absolutely */
-    top: 0; /* Align the header to the top */
-    left: 0; /* Align the header to the left */
-    width: 100%; /* Ensure the header spans the width of the component */
-    height: 150px; /* Set a fixed height for the header */
-    z-index: 10; /* Ensure the header appears above other content */
-  }
   
   .popup p {
     color: white;
