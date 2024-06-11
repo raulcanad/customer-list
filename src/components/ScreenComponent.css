@@ -1,0 +1,65 @@
+.select-wrapper {
+    margin-bottom: 1cm;
+  }
+  
+  .select-wrapper select {
+    max-height: 400px;
+    margin-top: 10px;
+  }
+  
+  .data-table-wrapper {
+    max-height: 400px;
+    margin-top: 10px;
+    overflow-y: auto;
+  }
+  
+  .data-table {
+    border: 1px solid black;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .data-table th,
+  .data-table td {
+    border: 1px solid black;
+    padding: 4px;
+    text-align: center;
+  }
+  .data-table.no-border {
+    border: none;
+  }
+  
+  .data-table.no-border thead,
+  .data-table.no-border th,
+  .data-table.no-border td {
+    border: none;
+  }
+.screen-component {
+    /* Add other styles here */
+    background-image: url('../gallery/screen.jpg'); /* Set the path to your image */
+    background-size: cover; /* Scale the background image to cover the entire container */
+    background-repeat: no-repeat; /* Prevent the background image from repeating */
+    height: 100vh; /* Ensure the component takes up the full height of the viewport */
+    display: flex; /* Use flexbox layout */
+    justify-content: center; /* Center the content horizontally */
+    align-items: center; /* Center the content vertically */
+  }
+/* Background for mobile screens */
+@media (max-width: 768px) {
+    .version-component {
+      background-size: cover; /* Ensure the background image covers the entire container */
+      background-position: center; /* Center the background image */
+    }
+  }
+
+  .data-table {
+    color: white; /* Set text color to white */
+  }
+  
+  .data-table th,
+  .data-table td {
+    padding: 8px; /* Add padding for better readability */
+  }
+  .version-component .title {
+    color: white;
+  }

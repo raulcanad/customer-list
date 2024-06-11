@@ -1,0 +1,8 @@
+{
+    "urlsUat": [
+      { "name": "Spor", "url": "https://www-screens-spor-uat.optimahq.com/version.json" }
+    ],
+    "urlsProd": [
+      { "name": "Spor", "url": "https://www-screens-spor-pr.optimahq.com/version.json" }
+    ]
+  }

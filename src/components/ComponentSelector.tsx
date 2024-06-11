@@ -3,6 +3,7 @@ import VersionComponent from './VersionComponent.tsx';
 import PamComponent from './PamComponent.tsx';
 import './ComponentSelector.css';
 import Welcome from './Welcome.tsx';
+import ScreenComponent from './ScreenComponent.tsx';
 
 const ComponentSelector: React.FC = () => {
   const [selectedComponent, setSelectedComponent] = useState<string>('');
@@ -22,11 +23,13 @@ const ComponentSelector: React.FC = () => {
             <option value="welcome">HOME</option>
             <option value="version">SPORTSBOOK</option>
             <option value="pam">PAM</option>
+            <option value="screens">SCREENS</option>
           </select>
         </div>
-        {selectedComponent === 'welcome' && <Welcome/> }
+        {selectedComponent === 'welcome' && <Welcome /> }
         {selectedComponent === 'version' && <VersionComponent />}
         {selectedComponent === 'pam' && <PamComponent />}
+        {selectedComponent === 'screens' && <ScreenComponent />}
       </div>
     </div>
   );

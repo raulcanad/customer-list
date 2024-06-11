@@ -6,7 +6,8 @@
       { "name": "Bson", "url": "https://www-bson-ssb-ua.betsson.fr/version.json" },
       { "name": "Pent", "url": "https://www-xlbe-ssb-uat.uatsecure.com/version.json" },
       { "name": "Dazu", "url": "https://www-dazu-ssb-uat.uatsecure.com/version.json" },
-      { "name": "Talo", "url": "https://www-talo-srp-ua.optimahq.com/version.json" }
+      { "name": "Talo", "url": "https://www-talo-srp-ua.optimahq.com/version.json" },
+      { "name": "NT", "url": "https://www-oqa1.sport2.devqa.norsk-tipping.no/version.json" }
     ],
     "urlsProd": [
       { "name": "Zamb", "url": "https://www-zamb-ssb-pr.zamba.co/version.json" },
@@ -15,6 +16,7 @@
       { "name": "Bson", "url": "https://www-bson-ssb-pr.betsson.fr/version.json" },
       { "name": "Pent", "url": "https://www-pent-ssb-pr.ncinteg-peg.tech/version.json" },
       { "name": "Dazu", "url": "https://www-dazu-ssb-pr.daznbet.com/version.json" },
-      { "name": "Talo", "url": "https://www-talo-ssb-pr.optimahq.com/version.json" }
+      { "name": "Talo", "url": "https://www-talo-ssb-pr.optimahq.com/version.json" },
+      { "name": "NT", "url": "https://www-oqp1.sport2.devqa.norsk-tipping.no/version.json" }
     ]
   }
