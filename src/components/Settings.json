@@ -6,7 +6,7 @@
       { "name": "Bson", "url": "https://www-bson-ssb-ua.betsson.fr/version.json" },
       { "name": "Pent", "url": "https://www-xlbe-ssb-uat.uatsecure.com/version.json" },
       { "name": "Dazu", "url": "https://www-dazu-ssb-uat.uatsecure.com/version.json" },
-      { "name": "Talo", "url": "https://www-talo-srp-ua.optimahq.com/version.json" },
+      { "name": "Talo", "url": "https://www-talo-ssb-ua.optimahq.com/version.json" },
       { "name": "NT", "url": "https://www-oqa1.sport2.devqa.norsk-tipping.no/version.json" }
     ],
     "urlsProd": [

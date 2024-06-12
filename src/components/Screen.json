@@ -1,8 +1,12 @@
 {
     "urlsUat": [
-      { "name": "Spor", "url": "https://www-screens-spor-uat.optimahq.com/version.json" }
+      { "name": "Spor", "url": "https://www-screens-spor-uat.optimahq.com/version.json" },
+      { "name": "Cage", "url": "https://www-cage-screens-ua.betcagesports.com/version.json" },
+      { "name": "Talo", "url": "https://www-talo-screens-ua.optimahq.com/version.json" }
     ],
     "urlsProd": [
-      { "name": "Spor", "url": "https://www-screens-spor-pr.optimahq.com/version.json" }
+      { "name": "Spor", "url": "https://www-screens-spor-pr.optimahq.com/version.json" },
+      { "name": "Cage", "url": "https://www-cage-screens-pr.betcagesports.com/version.json" },
+      { "name": "Talo", "url": "https://www-talo-screens-pr.optimahq.com/version.json" }
     ]
   }
