@@ -1,6 +1,6 @@
 import React, { useState, useEffect, ChangeEvent } from 'react';
-import './Pam.css';
-import urlsData from './Pam.json';
+import '../style/Pam.css';
+import urlsData from '../settings/Pam.json';
 
 interface VersionData {
   [key: string]: any;

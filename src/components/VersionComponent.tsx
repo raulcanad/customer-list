@@ -1,6 +1,6 @@
 import React, { useState, useEffect, ChangeEvent } from 'react';
-import './VersionComponent.css';
-import urlsData from './Settings.json';
+import '../style/Sportsbook.css';
+import urlsData from '../settings/Sportsbook.json';
 
 interface VersionData {
   [key: string]: any;

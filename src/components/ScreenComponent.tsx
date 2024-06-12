@@ -1,6 +1,6 @@
 import React, { useState, useEffect, ChangeEvent } from 'react';
-import './ScreenComponent.css';
-import urlsData from './Screen.json';
+import '../style/ScreenComponent.css';
+import urlsData from '../settings/Screen.json';
 
 interface ScreenData {
   [key: string]: any;

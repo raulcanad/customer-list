@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './Welcome.css';
+import '../style/Welcome.css';
 
 const Welcome: React.FC = () => {
   const [visible, setVisible] = useState(false);

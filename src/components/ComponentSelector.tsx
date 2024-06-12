@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import VersionComponent from './VersionComponent.tsx';
 import PamComponent from './PamComponent.tsx';
-import './ComponentSelector.css';
+import '../style/ComponentSelector.css';
 import Welcome from './Welcome.tsx';
 import ScreenComponent from './ScreenComponent.tsx';
 
