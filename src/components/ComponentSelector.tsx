@@ -6,7 +6,7 @@ import Welcome from './Welcome.tsx';
 import ScreenComponent from './ScreenComponent.tsx';
 
 const ComponentSelector: React.FC = () => {
-  const [selectedComponent, setSelectedComponent] = useState<string>('');
+  const [selectedComponent, setSelectedComponent] = useState<string>('welcome');
   const [isHomeSelected, setIsHomeSelected] = useState<boolean>(true);
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
