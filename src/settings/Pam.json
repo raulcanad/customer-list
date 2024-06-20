@@ -1,10 +1,10 @@
 {
     "urlsUat": [
-      { "name": "Spor", "url": "https://www-pam-uat.optimahq.com/version.json" },
-      { "name": "Talo", "url": "https://www-talo-srp-ua.optimahq.com/version.json" }
+        { "name": "Spor", "url": "https://www-pam-uat.optimahq.com/version.json" },
+        { "name": "Talo", "url": "https://www-talo-srp-ua.optimahq.com/version.json" }
     ],
     "urlsProd": [
-      { "name": "Spor", "url": "https://www-pam-pr.optimahq.com/version.json" },
-      { "name": "Talo", "url": "https://www-talo-srp-pr.optimahq.com/version.json" }
+        { "name": "Spor", "url": "https://www-pam-pr.optimahq.com/version.json" },
+        { "name": "Talo", "url": "https://www-talo-srp-pr.optimahq.com/version.json" }
     ]
-  }
+}
