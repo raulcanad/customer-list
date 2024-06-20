@@ -76,9 +76,11 @@ const VersionComponent: React.FC = () => {
     return false;
   };
 
+  const isNTCustomer = selectedCustomerIndex !== null && urlsUat[selectedCustomerIndex].name === 'NT';
+
   return (
     <div className="version-component">
-     <h1 className="title">SPORTSBOOK'S VERSIONS</h1>
+      <h1 className="title">SPORTSBOOK'S VERSIONS</h1>
       {showSubmodulePopup && (
         <div className="popup">
           <p>Please note that submodules are deployed for this customer. Click the button for more data.</p>
@@ -102,8 +104,8 @@ const VersionComponent: React.FC = () => {
                 <thead>
                   <tr>
                     <th>DATA</th>
-                    <th>UAT</th>
-                    <th>PROD</th>
+                    <th>{isNTCustomer ? 'OQA1' : 'UAT'}</th>
+                    <th>{isNTCustomer ? 'OQP1' : 'PROD'}</th>
                   </tr>
                 </thead>
               )}
@@ -112,18 +114,18 @@ const VersionComponent: React.FC = () => {
                   <tr key={key}>
                     <td>{key}</td>
                     <td>
-                      {key === 'Link' && selectedCustomerIndex !== null ? <button className="button" onClick={() => window.open(urlsUat[selectedCustomerIndex].url, '_blank', 'width=600,height=400')}>UAT</button> : typeof uatVersion[key] === 'object' ? JSON.stringify(uatVersion[key]) : uatVersion[key]}
+                      {key === 'Link' && selectedCustomerIndex !== null ? <button className="button" onClick={() => window.open(urlsUat[selectedCustomerIndex].url, '_blank', 'width=600,height=400')}>{isNTCustomer ? 'OQA' : 'UAT'}</button> : typeof uatVersion[key] === 'object' ? JSON.stringify(uatVersion[key]) : uatVersion[key]}
                     </td>
                     <td>
-                      {key === 'Link' && selectedCustomerIndex !== null ? <button className="button" onClick={() => window.open(urlsProd[selectedCustomerIndex].url, '_blank', 'width=600,height=400')}>PROD</button> : typeof prodVersion[key] === 'object' ? JSON.stringify(prodVersion[key]) : prodVersion[key]}
+                      {key === 'Link' && selectedCustomerIndex !== null ? <button className="button" onClick={() => window.open(urlsProd[selectedCustomerIndex].url, '_blank', 'width=600,height=400')}>{isNTCustomer ? 'OQP' : 'PROD'}</button> : typeof prodVersion[key] === 'object' ? JSON.stringify(prodVersion[key]) : prodVersion[key]}
                     </td>
                   </tr>
                 ))}
                 {selectedCustomerIndex !== null && (
                   <tr>
                     <td>Link</td>
-                    <td><button className="button" onClick={() => window.open(urlsUat[selectedCustomerIndex].url, '_blank', 'width=600,height=400')}>UAT</button></td>
-                    <td><button className="button" onClick={() => window.open(urlsProd[selectedCustomerIndex].url, '_blank', 'width=600,height=400')}>PROD</button></td>
+                    <td><button className="button" onClick={() => window.open(urlsUat[selectedCustomerIndex].url, '_blank', 'width=600,height=400')}>{isNTCustomer ? 'OQA' : 'UAT'}</button></td>
+                    <td><button className="button" onClick={() => window.open(urlsProd[selectedCustomerIndex].url, '_blank', 'width=600,height=400')}>{isNTCustomer ? 'OQP' : 'PROD'}</button></td>
                   </tr>
                 )}
               </tbody>
