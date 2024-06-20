@@ -20,6 +20,7 @@
     width: 100%; /* Ensure the header spans the width of the component */
     height: 150px; /* Set a fixed height for the header */
     z-index: 10; /* Ensure the header appears above other content */
+    opacity: 0.80;
   }
   
   .welcome-container.visible {
