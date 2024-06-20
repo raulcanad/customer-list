@@ -10,7 +10,7 @@ const Welcome: React.FC = () => {
 
   return (
     <div className={`welcome-container ${visible ? 'visible' : ''}`}>
-      <h2>Welcome to Version Viewer</h2>
+      <h2>Welcome to Version Checker</h2>
     </div>
   );
 };
