@@ -1,6 +1,7 @@
 import React, { useState, useEffect, ChangeEvent } from 'react';
 import '../style/Sportsbook.css';
 import urlsData from '../settings/Sportsbook.json';
+import fetchCageData from './fetchCageData';
 
 interface VersionData {
   [key: string]: any;
@@ -23,7 +24,14 @@ const VersionComponent: React.FC = () => {
       setLoading(true);
       const uatUrl = urlsUat[selectedCustomerIndex].url;
       const prodUrl = urlsProd[selectedCustomerIndex].url;
-      fetchVersions(uatUrl, prodUrl);
+
+      if (urlsUat[selectedCustomerIndex].name === 'Cage') {
+        // Fetch Cage data specifically
+        fetchCageVersions();
+      } else {
+        // Fetch data for other customers
+        fetchVersions(uatUrl, prodUrl);
+      }
     }
   }, [selectedCustomerIndex]);
 
@@ -46,15 +54,34 @@ const VersionComponent: React.FC = () => {
     setCustomerSelected(true);
   };
 
-  const fetchVersions = (uatUrl: string, prodUrl: string) => {
-    Promise.all([
-      fetch(uatUrl).then(response => response.json()),
-      fetch(prodUrl).then(response => response.json())
-    ]).then(([uatData, prodData]) => {
+  const fetchCageVersions = async () => {
+    try {
+      setLoading(true);
+      const cageData = await fetchCageData();
+      setUatVersion(filterSubmodules(cageData));
+      // Assuming there is no separate prod version for Cage, you can duplicate uatVersion to prodVersion
+      setProdVersion(filterSubmodules(cageData));
+    } catch (error) {
+      console.error('Error fetching Cage versions:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchVersions = async (uatUrl: string, prodUrl: string) => {
+    try {
+      setLoading(true);
+      const [uatData, prodData] = await Promise.all([
+        fetch(uatUrl).then(response => response.json()),
+        fetch(prodUrl).then(response => response.json())
+      ]);
       setUatVersion(filterSubmodules(uatData));
       setProdVersion(filterSubmodules(prodData));
-    }).catch(error => console.error('Error fetching versions:', error))
-    .finally(() => setLoading(false));
+    } catch (error) {
+      console.error('Error fetching versions:', error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const filterSubmodules = (data: VersionData): VersionData => {
