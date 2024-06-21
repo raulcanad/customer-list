@@ -1,12 +1,10 @@
 import React, { useState, useEffect, ChangeEvent } from 'react';
 import '../style/Sportsbook.css';
 import urlsData from '../settings/Sportsbook.json';
-import fetchCageData from './fetchCageData';
 
 interface VersionData {
   [key: string]: any;
 }
-
 const VersionComponent: React.FC = () => {
   const [uatVersion, setUatVersion] = useState<VersionData | null>(null);
   const [prodVersion, setProdVersion] = useState<VersionData | null>(null);
@@ -15,23 +13,14 @@ const VersionComponent: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [showSubmodulePopup, setShowSubmodulePopup] = useState<boolean>(false);
   const [showButtonsOnly, setShowButtonsOnly] = useState<boolean>(false);
-
   const urlsUat = urlsData.urlsUat;
   const urlsProd = urlsData.urlsProd;
-
   useEffect(() => {
     if (selectedCustomerIndex !== null) {
       setLoading(true);
       const uatUrl = urlsUat[selectedCustomerIndex].url;
       const prodUrl = urlsProd[selectedCustomerIndex].url;
-
-      if (urlsUat[selectedCustomerIndex].name === 'Cage') {
-        // Fetch Cage data specifically
-        fetchCageVersions();
-      } else {
-        // Fetch data for other customers
-        fetchVersions(uatUrl, prodUrl);
-      }
+      fetchVersions(uatUrl, prodUrl);
     }
   }, [selectedCustomerIndex]);
 
@@ -47,41 +36,21 @@ const VersionComponent: React.FC = () => {
       setShowButtonsOnly(false);
     }
   }, [uatVersion, prodVersion]);
-
   const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const index = parseInt(event.target.value, 10);
     setSelectedCustomerIndex(index);
     setCustomerSelected(true);
   };
 
-  const fetchCageVersions = async () => {
-    try {
-      setLoading(true);
-      const cageData = await fetchCageData();
-      setUatVersion(filterSubmodules(cageData));
-      // Assuming there is no separate prod version for Cage, you can duplicate uatVersion to prodVersion
-      setProdVersion(filterSubmodules(cageData));
-    } catch (error) {
-      console.error('Error fetching Cage versions:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const fetchVersions = async (uatUrl: string, prodUrl: string) => {
-    try {
-      setLoading(true);
-      const [uatData, prodData] = await Promise.all([
-        fetch(uatUrl).then(response => response.json()),
-        fetch(prodUrl).then(response => response.json())
-      ]);
+  const fetchVersions = (uatUrl: string, prodUrl: string) => {
+    Promise.all([
+      fetch(uatUrl).then(response => response.json()),
+      fetch(prodUrl).then(response => response.json())
+    ]).then(([uatData, prodData]) => {
       setUatVersion(filterSubmodules(uatData));
       setProdVersion(filterSubmodules(prodData));
-    } catch (error) {
-      console.error('Error fetching versions:', error);
-    } finally {
-      setLoading(false);
-    }
+    }).catch(error => console.error('Error fetching versions:', error))
+    .finally(() => setLoading(false));
   };
 
   const filterSubmodules = (data: VersionData): VersionData => {
@@ -93,7 +62,6 @@ const VersionComponent: React.FC = () => {
     }
     return cleanData;
   };
-
   const hasSubmodules = (data: VersionData): boolean => {
     for (const key in data) {
       if (typeof data[key] === 'object') {
@@ -102,9 +70,7 @@ const VersionComponent: React.FC = () => {
     }
     return false;
   };
-
   const isNTCustomer = selectedCustomerIndex !== null && urlsUat[selectedCustomerIndex].name === 'NT';
-
   return (
     <div className="version-component">
       <h1 className="title">SPORTSBOOK'S VERSIONS</h1>
@@ -163,5 +129,4 @@ const VersionComponent: React.FC = () => {
     </div>
   );
 };
-
 export default VersionComponent;
