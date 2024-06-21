@@ -115,7 +115,7 @@ const VersionComponent: React.FC = () => {
                   </tr>
                 ))}
                 {selectedCustomerIndex !== null && (
-                  <tr>
+                  <tr className="table-row-mobile">
                     <td>Link</td>
                     <td><button className="button" onClick={() => window.open(urlsUat[selectedCustomerIndex].url, '_blank', 'width=600,height=400')}>{isNTCustomer ? 'OQA' : 'UAT'}</button></td>
                     <td><button className="button" onClick={() => window.open(urlsProd[selectedCustomerIndex].url, '_blank', 'width=600,height=400')}>{isNTCustomer ? 'OQP' : 'PROD'}</button></td>

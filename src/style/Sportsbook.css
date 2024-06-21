@@ -79,6 +79,9 @@
         background-size: cover; /* Ensure background covers container */
         background-position: center; /* Center background image */
     }
+    .table-row-mobile{
+        display: none;
+    }
 }
 
 /* Title within the version component */
