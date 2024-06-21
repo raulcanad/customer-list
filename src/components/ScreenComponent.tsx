@@ -120,7 +120,7 @@ const ScreenComponent: React.FC = () => {
                   </tr>
                 ))}
                 {selectedCustomerIndex !== null && (
-                  <tr>
+                  <tr className="table-row-mobile">
                     <td>Link</td>
                     <td><button className="button" onClick={() => window.open(urlsUat[selectedCustomerIndex].url, '_blank', 'width=600,height=400')}>UAT</button></td>
                     <td><button className="button" onClick={() => window.open(urlsProd[selectedCustomerIndex].url, '_blank', 'width=600,height=400')}>PROD</button></td>

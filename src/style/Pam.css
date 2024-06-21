@@ -85,4 +85,10 @@
       background-size: cover; /* Ensure the background image covers the entire container */
       background-position: center; /* Center the background image */
     }
+    .table-row-mobile{
+        display: none;
+    }
+    .mobile-toast{
+        display: none;
+    }
   }

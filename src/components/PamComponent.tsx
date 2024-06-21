@@ -91,7 +91,7 @@ const PamComponent: React.FC = () => {
         <>
           {showSubmodulePopup && (
             <div className="popup">
-              <p>Please note that submodules are deployed in PAM for this customer. Click the button for more data.</p>
+              <p className="mobile-toast">Please note that submodules are deployed in PAM for this customer. Click the button for more data.</p>
               <table className="data-table">
                 <thead>
                   <tr>
@@ -110,6 +110,23 @@ const PamComponent: React.FC = () => {
                     <td>Build</td>
                     <td>{uatVersion && uatVersion.build}</td>
                     <td>{prodVersion && prodVersion.build}</td>
+                  </tr>
+                  <tr className="table-row-mobile">
+                    <td>Link</td>
+                    <td>
+                      {selectedCustomerIndex !== null && (
+                        <button className="button" onClick={() => window.open(urlsUat[selectedCustomerIndex].url, '_blank', 'width=600,height=400')}>
+                          UAT
+                        </button>
+                      )}
+                    </td>
+                    <td>
+                      {selectedCustomerIndex !== null && (
+                        <button className="button" onClick={() => window.open(urlsProd[selectedCustomerIndex].url, '_blank', 'width=600,height=400')}>
+                          PROD
+                        </button>
+                      )}
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -148,13 +165,6 @@ const PamComponent: React.FC = () => {
                         <td>{prodVersion['msg-version']}</td>
                       </tr>
                     </>
-                  )}
-                  {selectedCustomerIndex !== null && (
-                    <tr>
-                      <td>Link</td>
-                      <td><button className="button" onClick={() => window.open(urlsUat[selectedCustomerIndex].url, '_blank', 'width=600,height=400')}>UAT</button></td>
-                      <td><button className="button" onClick={() => window.open(urlsProd[selectedCustomerIndex].url, '_blank', 'width=600,height=400')}>PROD</button></td>
-                    </tr>
                   )}
                 </tbody>
               </table>
