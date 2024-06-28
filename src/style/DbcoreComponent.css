@@ -1,0 +1,43 @@
+.dbcore-component {
+    background-image: url('../gallery/backend.jpg'); /* Set the path to your image */
+    background-size: cover; /* Scale the background image to cover the entire container */
+    background-repeat: no-repeat; /* Prevent the background image from repeating */
+    height: 100vh; /* Ensure the component takes up the full height of the viewport */
+    display: flex; /* Use flexbox layout */
+    justify-content: center; /* Center the content horizontally */
+    align-items: center; /* Center the content vertically */
+    position: relative; /* Allow positioning of floating header */
+  }
+
+  .dbcore-component-content {
+    background-color: #00003C; /* Example semi-transparent white background */
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Example box shadow */
+  }
+  
+  table {
+    border-collapse: collapse;
+    width: 300px; /* Adjust table width as needed */
+    background-color: #f9f9f9;
+  }
+  
+  caption {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+
+  .caption{
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #ffffff; /* Set caption color to white */
+  }

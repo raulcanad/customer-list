@@ -4,6 +4,7 @@ import PamComponent from './PamComponent.tsx';
 import '../style/ComponentSelector.css';
 import Welcome from './Welcome.tsx';
 import ScreenComponent from './ScreenComponent.tsx';
+import DbcoreComponent from './DbcoreComponent.tsx';
 
 const ComponentSelector: React.FC = () => {
   const [selectedComponent, setSelectedComponent] = useState<string>('welcome');
@@ -24,12 +25,14 @@ const ComponentSelector: React.FC = () => {
             <option value="version">SPORTSBOOK</option>
             <option value="pam">PAM</option>
             <option value="screens">SCREENS</option>
+            <option value="backend">BACKEND</option>
           </select>
         </div>
         {selectedComponent === 'welcome' && <Welcome /> }
         {selectedComponent === 'version' && <VersionComponent />}
         {selectedComponent === 'pam' && <PamComponent />}
         {selectedComponent === 'screens' && <ScreenComponent />}
+        {selectedComponent === 'backend' && <DbcoreComponent />}
       </div>
     </div>
   );
