@@ -3,7 +3,7 @@ const { createPool, getConnection } = require('oracledb');
 const cors = require('cors'); // Import the cors package
 
 const app = express();
-const port = 5000;
+const port = 5001;
 
 // Enable CORS for all requests
 app.use(cors());
@@ -12,7 +12,7 @@ app.use(cors());
 const dbConfig = {
   user: 'system',
   password: 'fyftem',
-  connectString: '(DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = SPORDVHQ1.dev.local)(PORT = 1566)) (CONNECT_DATA = (SERVICE_NAME = HQ1_SN) (UR = A)))'
+  connectString: '(DESCRIPTION = (ENABLE=BROKEN)(ADDRESS = (PROTOCOL = TCP)(HOST = SPORPRHQ1.optima.local)(PORT = 1562)) (CONNECT_DATA = (SERVICE_NAME = HQ1_SN) (UR = A)))'
 };
 
 // Function to initialize OracleDB connection pool
