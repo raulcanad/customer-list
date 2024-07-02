@@ -3,33 +3,51 @@ import axios from 'axios';
 import '../style/DbcoreComponent.css';
 
 const DbcoreComponent: React.FC = () => {
-  const [versionUat, setVersion] = useState<string>('');
+  const [versionUat, setVersionUat] = useState<string>('');
+  const [versionProd, setVersionProd] = useState<string>('');
+  const [versionUatMmfix, setVersionUatMmfix] = useState<string>('');
+  const [versionProdMmfix, setVersionProdMmfix] = useState<string>('');
 
   useEffect(() => {
-    fetchData();
+    fetchDbcoreDataUat();
+    fetchDbcoreDataProd();
+    fetchMmfixedoddsDataUat();
+    fetchMmfixedoddsDataProd();
+
   }, []);
 
-  const fetchData = async () => {
+  const fetchDbcoreDataUat = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/data');
-      setVersion(response.data[0]); // Assuming the result is a single value
+      const response = await axios.get('http://localhost:5000/api/dbcore');
+      setVersionUat(response.data[0]); // Assuming the result is a single value
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error('Error fetching DBCORE data:', error);
+    }
+  };
+  const fetchDbcoreDataProd = async () => {
+    try {
+      const response = await axios.get('http://localhost:5001/api/dbcore');
+      setVersionProd(response.data[0]); // Assuming the result is a single value
+    } catch (error) {
+      console.error('Error fetching DBCORE data:', error);
     }
   };
 
-  const [versionProd, setVersionProd] = useState<string>('');
-
-  useEffect(() => {
-    fetchDataDos();
-  }, []);
-
-  const fetchDataDos = async () => {
+  const fetchMmfixedoddsDataUat = async () => {
     try {
-      const response = await axios.get('http://localhost:5001/api/data');
-      setVersionProd(response.data[0]); // Assuming the result is a single value
+      const response = await axios.get('http://localhost:5000/api/mmfixedodds');
+      setVersionUatMmfix(response.data[0]); // Assuming the result is a single value
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error('Error fetching MMFIXEDODDS data:', error);
+    }
+  };
+
+  const fetchMmfixedoddsDataProd = async () => {
+    try {
+      const response = await axios.get('http://localhost:5001/api/mmfixedodds');
+      setVersionProdMmfix(response.data[0]); // Assuming the result is a single value
+    } catch (error) {
+      console.error('Error fetching MMFIXEDODDS data:', error);
     }
   };
 
@@ -48,6 +66,11 @@ const DbcoreComponent: React.FC = () => {
               <th>DBCORE Version:</th>
               <td>{versionUat}</td>
               <td>{versionProd}</td>
+            </tr>
+            <tr>
+              <th>MMFIXEDODDS Version:</th>
+              <td>{versionUatMmfix}</td>
+              <td>{versionProdMmfix}</td>
             </tr>
           </tbody>
         </table>
