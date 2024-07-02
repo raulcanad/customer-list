@@ -7,12 +7,16 @@ const DbcoreComponent: React.FC = () => {
   const [versionProd, setVersionProd] = useState<string>('');
   const [versionUatMmfix, setVersionUatMmfix] = useState<string>('');
   const [versionProdMmfix, setVersionProdMmfix] = useState<string>('');
+  const [versionUatMmtex, setVersionUatMmtex] = useState<string>('');
+  const [versionProdMmtex, setVersionProdMmtex] = useState<string>('');
 
   useEffect(() => {
     fetchDbcoreDataUat();
     fetchDbcoreDataProd();
     fetchMmfixedoddsDataUat();
     fetchMmfixedoddsDataProd();
+    fetchMmtexasDataUat();
+    fetchMmtexasDataProd();
 
   }, []);
 
@@ -51,6 +55,26 @@ const DbcoreComponent: React.FC = () => {
     }
   };
 
+  const fetchMmtexasDataUat = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/api/mmtexas');
+      setVersionUatMmtex(response.data[0]); // Assuming the result is a single value
+    } catch (error) {
+      console.error('Error fetching MMTEXAS data:', error);
+    }
+  };
+
+  const fetchMmtexasDataProd = async () => {
+    try {
+      const response = await axios.get('http://localhost:5001/api/mmtexas');
+      setVersionProdMmtex(response.data[0]); // Assuming the result is a single value
+    } catch (error) {
+      console.error('Error fetching MMTEXAS data:', error);
+    }
+  };
+
+
+
   return (
     <div className="dbcore-component">
       <div className="dbcore-component-content">
@@ -71,6 +95,11 @@ const DbcoreComponent: React.FC = () => {
               <th>MMFIXEDODDS Version:</th>
               <td>{versionUatMmfix}</td>
               <td>{versionProdMmfix}</td>
+            </tr>
+            <tr>
+              <th>MMTEXAS Version:</th>
+              <td>{versionUatMmtex}</td>
+              <td>{versionProdMmtex}</td>
             </tr>
           </tbody>
         </table>

@@ -87,6 +87,36 @@ app.get('/api/mmfixedodds', async (req, res) => {
     }
   }
 });
+// API endpoint to fetch MMTEXAS data
+app.get('/api/mmtexas', async (req, res) => {
+    let connection;
+    try {
+      connection = await oracledb.getConnection(); // Correct the function call
+      const result = await connection.execute(
+        `SELECT DISTINCT m.idmvversion 
+         FROM MMVERSION.MVCURRENTCOMPONENTVERSION m 
+         WHERE m.componentname = 'MMTEXAS' 
+         AND m.tscreated = (
+           SELECT MAX(mv.tscreated) 
+           FROM MMVERSION.MVCURRENTCOMPONENTVERSION mv 
+           WHERE mv.componentname = m.componentname
+         )`
+      );
+      console.log('MMTEXAS Query Result:', result.rows);
+      res.send(result.rows);
+    } catch (err) {
+      console.error('Error fetching MMTEXAS data:', err.message);
+      res.status(500).send({ error: `Error fetching MMTEXAS data: ${err.message}` });
+    } finally {
+      if (connection) {
+        try {
+          await connection.close();
+        } catch (err) {
+          console.error('Error closing connection:', err.message);
+        }
+      }
+    }
+  });
 
 // Start the server and initialize the database connection
 app.listen(port, async () => {
