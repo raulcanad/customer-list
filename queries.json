@@ -1,0 +1,7 @@
+{
+    "dbcore": "SELECT DISTINCT m.idmvversion FROM MMVERSION.MVCURRENTCOMPONENTVERSION m WHERE m.componentname = 'DBCORE' AND m.tscreated = (SELECT MAX(mv.tscreated) FROM MMVERSION.MVCURRENTCOMPONENTVERSION mv WHERE mv.componentname = m.componentname)",
+    "mmfixedodds": "SELECT DISTINCT m.idmvversion FROM MMVERSION.MVCURRENTCOMPONENTVERSION m WHERE m.componentname = 'MMFIXEDODDS' AND m.tscreated = (SELECT MAX(mv.tscreated) FROM MMVERSION.MVCURRENTCOMPONENTVERSION mv WHERE mv.componentname = m.componentname)",
+    "mmtexas": "SELECT DISTINCT m.idmvversion FROM MMVERSION.MVCURRENTCOMPONENTVERSION m WHERE m.componentname = 'MMTEXAS' AND m.tscreated = (SELECT MAX(mv.tscreated) FROM MMVERSION.MVCURRENTCOMPONENTVERSION mv WHERE mv.componentname = m.componentname)",
+    "mmfowarp": "SELECT DISTINCT m.idmvversion FROM MMVERSION.MVCURRENTCOMPONENTVERSION m WHERE m.componentname = 'MMFOWARP' AND m.tscreated = (SELECT MAX(mv.tscreated) FROM MMVERSION.MVCURRENTCOMPONENTVERSION mv WHERE mv.componentname = m.componentname)",
+    "mm": "SELECT DISTINCT m.idmvversion FROM MMVERSION.MVCURRENTCOMPONENTVERSION m WHERE m.componentname = 'MM' AND m.tscreated = (SELECT MAX(mv.tscreated) FROM MMVERSION.MVCURRENTCOMPONENTVERSION mv WHERE mv.componentname = m.componentname)"
+  }
