@@ -25,7 +25,7 @@ const ComponentSelector: React.FC = () => {
             <option value="version">SPORTSBOOK</option>
             <option value="pam">PAM</option>
             <option value="screens">SCREENS</option>
-            <option value="backend">BACKEND</option>
+            <option value="backend">DB-SCHEMES</option>
           </select>
         </div>
         {selectedComponent === 'welcome' && <Welcome /> }

@@ -9,7 +9,10 @@ const DbcoreComponent: React.FC = () => {
   const [versionProdMmfix, setVersionProdMmfix] = useState<string>('');
   const [versionUatMmtex, setVersionUatMmtex] = useState<string>('');
   const [versionProdMmtex, setVersionProdMmtex] = useState<string>('');
-
+  const [versionUatMmfowarp, setVersionUatMmfowarp] = useState<string>('');
+  const [versionProdMmfowarp, setVersionProdMmfowarp] = useState<string>('');
+  const [versionUatMm, setVersionUatMm] = useState<string>('');
+  const [versionProdMm, setVersionProdMm] = useState<string>('');
   useEffect(() => {
     fetchDbcoreDataUat();
     fetchDbcoreDataProd();
@@ -17,6 +20,10 @@ const DbcoreComponent: React.FC = () => {
     fetchMmfixedoddsDataProd();
     fetchMmtexasDataUat();
     fetchMmtexasDataProd();
+    fetchMmfowarpDataUat();
+    fetchMmfowarpDataProd();
+    fetchMmDataUat();
+    fetchMmDataProd();
 
   }, []);
 
@@ -73,6 +80,42 @@ const DbcoreComponent: React.FC = () => {
     }
   };
 
+  const fetchMmfowarpDataUat = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/api/mmfowarp');
+      setVersionUatMmfowarp(response.data[0]); // Assuming the result is a single value
+    } catch (error) {
+      console.error('Error fetching MMFOWARP data:', error);
+    }
+  };
+
+  const fetchMmfowarpDataProd = async () => {
+    try {
+      const response = await axios.get('http://localhost:5001/api/mmfowarp');
+      setVersionProdMmfowarp(response.data[0]); // Assuming the result is a single value
+    } catch (error) {
+      console.error('Error fetching MMFOWARP data:', error);
+    }
+  };
+
+  const fetchMmDataUat = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/api/mm');
+      setVersionUatMm(response.data[0]); // Assuming the result is a single value
+    } catch (error) {
+      console.error('Error fetching MM data:', error);
+    }
+  };
+
+  const fetchMmDataProd = async () => {
+    try {
+      const response = await axios.get('http://localhost:5001/api/mm');
+      setVersionProdMm(response.data[0]); // Assuming the result is a single value
+    } catch (error) {
+      console.error('Error fetching MM data:', error);
+    }
+  };
+
 
 
   return (
@@ -100,6 +143,16 @@ const DbcoreComponent: React.FC = () => {
               <th>MMTEXAS Version:</th>
               <td>{versionUatMmtex}</td>
               <td>{versionProdMmtex}</td>
+            </tr>
+            <tr>
+              <th>MMFOWARP Version:</th>
+              <td>{versionUatMmfowarp}</td>
+              <td>{versionProdMmfowarp}</td>
+            </tr>
+            <tr>
+              <th>MM Version:</th>
+              <td>{versionUatMm}</td>
+              <td>{versionProdMm}</td>
             </tr>
           </tbody>
         </table>

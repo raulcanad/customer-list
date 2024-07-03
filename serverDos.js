@@ -117,6 +117,49 @@ app.get('/api/mmtexas', async (req, res) => {
       }
     }
   });
+    // API endpoint to fetch MMFOWARP data
+app.get('/api/mmfowarp', async (req, res) => {
+    let connection;
+    try {
+      connection = await oracledb.getConnection();
+      const result = await connection.execute('SELECT DISTINCT m.idmvversion FROM MMVERSION.MVCURRENTCOMPONENTVERSION m WHERE m.componentname = \'MMFOWARP\' AND m.tscreated = (SELECT MAX(mv.tscreated) FROM MMVERSION.MVCURRENTCOMPONENTVERSION mv WHERE mv.componentname = m.componentname)');
+      console.log('MMFOWARP Query Result:', result.rows);
+      res.send(result.rows);
+    } catch (err) {
+      console.error('Error fetching MMFOWARP data:', err.message);
+      res.status(500).send({ error: `Error fetching MMFOWARP data: ${err.message}` });
+    } finally {
+      if (connection) {
+        try {
+          await connection.close();
+        } catch (err) {
+          console.error('Error closing connection:', err.message);
+        }
+      }
+    }
+  });
+
+      // API endpoint to fetch MM data
+app.get('/api/mm', async (req, res) => {
+    let connection;
+    try {
+      connection = await oracledb.getConnection();
+      const result = await connection.execute('SELECT DISTINCT m.idmvversion FROM MMVERSION.MVCURRENTCOMPONENTVERSION m WHERE m.componentname = \'MM\' AND m.tscreated = (SELECT MAX(mv.tscreated) FROM MMVERSION.MVCURRENTCOMPONENTVERSION mv WHERE mv.componentname = m.componentname)');
+      console.log('MM Query Result:', result.rows);
+      res.send(result.rows);
+    } catch (err) {
+      console.error('Error fetching MM data:', err.message);
+      res.status(500).send({ error: `Error fetching MM data: ${err.message}` });
+    } finally {
+      if (connection) {
+        try {
+          await connection.close();
+        } catch (err) {
+          console.error('Error closing connection:', err.message);
+        }
+      }
+    }
+  });
 
 // Start the server and initialize the database connection
 app.listen(port, async () => {
