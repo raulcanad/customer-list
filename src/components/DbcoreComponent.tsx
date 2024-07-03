@@ -3,159 +3,131 @@ import axios from 'axios';
 import '../style/DbcoreComponent.css';
 
 const DbcoreComponent: React.FC = () => {
-  const [versionUat, setVersionUat] = useState<string>('');
-  const [versionProd, setVersionProd] = useState<string>('');
-  const [versionUatMmfix, setVersionUatMmfix] = useState<string>('');
-  const [versionProdMmfix, setVersionProdMmfix] = useState<string>('');
-  const [versionUatMmtex, setVersionUatMmtex] = useState<string>('');
-  const [versionProdMmtex, setVersionProdMmtex] = useState<string>('');
-  const [versionUatMmfowarp, setVersionUatMmfowarp] = useState<string>('');
-  const [versionProdMmfowarp, setVersionProdMmfowarp] = useState<string>('');
-  const [versionUatMm, setVersionUatMm] = useState<string>('');
-  const [versionProdMm, setVersionProdMm] = useState<string>('');
+  const [customers, setCustomers] = useState<{ name: string, uat: string, prod: string }[]>([
+    { name: 'SPOR', uat: 'http://localhost:5000/api/dbcore', prod: 'http://localhost:5001/api/dbcore' },
+    // Add more customers as needed
+  ]);
+
+  const [selectedCustomerIndex, setSelectedCustomerIndex] = useState<number | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const [versions, setVersions] = useState<{
+    [key: string]: {
+      dbcore: { uat: string, prod: string },
+      mmfixedodds: { uat: string, prod: string },
+      mmtexas: { uat: string, prod: string },
+      mmfowarp: { uat: string, prod: string },
+      mm: { uat: string, prod: string }
+    }
+  }>({});
+
   useEffect(() => {
-    fetchDbcoreDataUat();
-    fetchDbcoreDataProd();
-    fetchMmfixedoddsDataUat();
-    fetchMmfixedoddsDataProd();
-    fetchMmtexasDataUat();
-    fetchMmtexasDataProd();
-    fetchMmfowarpDataUat();
-    fetchMmfowarpDataProd();
-    fetchMmDataUat();
-    fetchMmDataProd();
+    if (selectedCustomerIndex !== null) {
+      setLoading(true);
+      const { uat: dbcoreUatUrl, prod: dbcoreProdUrl } = customers[selectedCustomerIndex];
+      const mmfixedoddsUatUrl = 'http://localhost:5000/api/mmfixedodds';
+      const mmfixedoddsProdUrl = 'http://localhost:5001/api/mmfixedodds';
+      const mmtexasUatUrl = 'http://localhost:5000/api/mmtexas';
+      const mmtexasProdUrl = 'http://localhost:5001/api/mmtexas';
+      const mmfowarpUatUrl = 'http://localhost:5000/api/mmfowarp';
+      const mmfowarpProdUrl = 'http://localhost:5001/api/mmfowarp';
+      const mmUatUrl = 'http://localhost:5000/api/mm';
+      const mmProdUrl = 'http://localhost:5001/api/mm';
 
-  }, []);
-
-  const fetchDbcoreDataUat = async () => {
-    try {
-      const response = await axios.get('http://localhost:5000/api/dbcore');
-      setVersionUat(response.data[0]); // Assuming the result is a single value
-    } catch (error) {
-      console.error('Error fetching DBCORE data:', error);
+      Promise.all([
+        axios.get(dbcoreUatUrl).then(response => response.data[0]), // Assuming data[0] is the version string
+        axios.get(dbcoreProdUrl).then(response => response.data[0]),
+        axios.get(mmfixedoddsUatUrl).then(response => response.data[0]),
+        axios.get(mmfixedoddsProdUrl).then(response => response.data[0]),
+        axios.get(mmtexasUatUrl).then(response => response.data[0]),
+        axios.get(mmtexasProdUrl).then(response => response.data[0]),
+        axios.get(mmfowarpUatUrl).then(response => response.data[0]),
+        axios.get(mmfowarpProdUrl).then(response => response.data[0]),
+        axios.get(mmUatUrl).then(response => response.data[0]),
+        axios.get(mmProdUrl).then(response => response.data[0])
+      ]).then(([
+        dbcoreUatData, dbcoreProdData,
+        mmfixedoddsUatData, mmfixedoddsProdData,
+        mmtexasUatData, mmtexasProdData,
+        mmfowarpUatData, mmfowarpProdData,
+        mmUatData, mmProdData
+      ]) => {
+        setVersions({
+          ...versions,
+          [customers[selectedCustomerIndex].name]: {
+            dbcore: { uat: dbcoreUatData, prod: dbcoreProdData },
+            mmfixedodds: { uat: mmfixedoddsUatData, prod: mmfixedoddsProdData },
+            mmtexas: { uat: mmtexasUatData, prod: mmtexasProdData },
+            mmfowarp: { uat: mmfowarpUatData, prod: mmfowarpProdData },
+            mm: { uat: mmUatData, prod: mmProdData }
+          }
+        });
+      }).catch(error => console.error('Error fetching data:', error))
+      .finally(() => setLoading(false));
     }
-  };
-  const fetchDbcoreDataProd = async () => {
-    try {
-      const response = await axios.get('http://localhost:5001/api/dbcore');
-      setVersionProd(response.data[0]); // Assuming the result is a single value
-    } catch (error) {
-      console.error('Error fetching DBCORE data:', error);
-    }
-  };
+  }, [selectedCustomerIndex]);
 
-  const fetchMmfixedoddsDataUat = async () => {
-    try {
-      const response = await axios.get('http://localhost:5000/api/mmfixedodds');
-      setVersionUatMmfix(response.data[0]); // Assuming the result is a single value
-    } catch (error) {
-      console.error('Error fetching MMFIXEDODDS data:', error);
-    }
+  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const index = parseInt(event.target.value, 10);
+    setSelectedCustomerIndex(index);
   };
-
-  const fetchMmfixedoddsDataProd = async () => {
-    try {
-      const response = await axios.get('http://localhost:5001/api/mmfixedodds');
-      setVersionProdMmfix(response.data[0]); // Assuming the result is a single value
-    } catch (error) {
-      console.error('Error fetching MMFIXEDODDS data:', error);
-    }
-  };
-
-  const fetchMmtexasDataUat = async () => {
-    try {
-      const response = await axios.get('http://localhost:5000/api/mmtexas');
-      setVersionUatMmtex(response.data[0]); // Assuming the result is a single value
-    } catch (error) {
-      console.error('Error fetching MMTEXAS data:', error);
-    }
-  };
-
-  const fetchMmtexasDataProd = async () => {
-    try {
-      const response = await axios.get('http://localhost:5001/api/mmtexas');
-      setVersionProdMmtex(response.data[0]); // Assuming the result is a single value
-    } catch (error) {
-      console.error('Error fetching MMTEXAS data:', error);
-    }
-  };
-
-  const fetchMmfowarpDataUat = async () => {
-    try {
-      const response = await axios.get('http://localhost:5000/api/mmfowarp');
-      setVersionUatMmfowarp(response.data[0]); // Assuming the result is a single value
-    } catch (error) {
-      console.error('Error fetching MMFOWARP data:', error);
-    }
-  };
-
-  const fetchMmfowarpDataProd = async () => {
-    try {
-      const response = await axios.get('http://localhost:5001/api/mmfowarp');
-      setVersionProdMmfowarp(response.data[0]); // Assuming the result is a single value
-    } catch (error) {
-      console.error('Error fetching MMFOWARP data:', error);
-    }
-  };
-
-  const fetchMmDataUat = async () => {
-    try {
-      const response = await axios.get('http://localhost:5000/api/mm');
-      setVersionUatMm(response.data[0]); // Assuming the result is a single value
-    } catch (error) {
-      console.error('Error fetching MM data:', error);
-    }
-  };
-
-  const fetchMmDataProd = async () => {
-    try {
-      const response = await axios.get('http://localhost:5001/api/mm');
-      setVersionProdMm(response.data[0]); // Assuming the result is a single value
-    } catch (error) {
-      console.error('Error fetching MM data:', error);
-    }
-  };
-
-
 
   return (
     <div className="dbcore-component">
       <div className="dbcore-component-content">
-        <table className="data-table">
-          <caption className='caption'>SCHEME-DB-VERSION</caption>
-          <tbody>
-            <tr>
-              <th></th>
-              <th>UAT</th>
-              <th>PROD</th>
-            </tr>
-            <tr>
-              <th>DBCORE Version:</th>
-              <td>{versionUat}</td>
-              <td>{versionProd}</td>
-            </tr>
-            <tr>
-              <th>MMFIXEDODDS Version:</th>
-              <td>{versionUatMmfix}</td>
-              <td>{versionProdMmfix}</td>
-            </tr>
-            <tr>
-              <th>MMTEXAS Version:</th>
-              <td>{versionUatMmtex}</td>
-              <td>{versionProdMmtex}</td>
-            </tr>
-            <tr>
-              <th>MMFOWARP Version:</th>
-              <td>{versionUatMmfowarp}</td>
-              <td>{versionProdMmfowarp}</td>
-            </tr>
-            <tr>
-              <th>MM Version:</th>
-              <td>{versionUatMm}</td>
-              <td>{versionProdMm}</td>
-            </tr>
-          </tbody>
-        </table>
+        <div className="select-wrapper">
+          <select onChange={handleSelectChange} value={selectedCustomerIndex !== null ? selectedCustomerIndex : ''}>
+            <option value="" disabled>Select a customer</option>
+            {customers.map((customer, index) => (
+              <option key={index} value={index}>{customer.name}</option>
+            ))}
+          </select>
+        </div>
+        {selectedCustomerIndex !== null && (
+          <table className="data-table">
+            <caption className='caption'>SCHEME-DB-VERSION</caption>
+            <tbody>
+              <tr>
+                <th></th>
+                <th>UAT</th>
+                <th>PROD</th>
+              </tr>
+              {loading ? (
+                <tr>
+                  <td colSpan={3}>Loading...</td>
+                </tr>
+              ) : (
+                <>
+                  <tr>
+                    <th>DBCORE Version:</th>
+                    <td>{versions[customers[selectedCustomerIndex].name]?.dbcore.uat}</td>
+                    <td>{versions[customers[selectedCustomerIndex].name]?.dbcore.prod}</td>
+                  </tr>
+                  <tr>
+                    <th>MMFIXEDODDS Version:</th>
+                    <td>{versions[customers[selectedCustomerIndex].name]?.mmfixedodds.uat}</td>
+                    <td>{versions[customers[selectedCustomerIndex].name]?.mmfixedodds.prod}</td>
+                  </tr>
+                  <tr>
+                    <th>MMTEXAS Version:</th>
+                    <td>{versions[customers[selectedCustomerIndex].name]?.mmtexas.uat}</td>
+                    <td>{versions[customers[selectedCustomerIndex].name]?.mmtexas.prod}</td>
+                  </tr>
+                  <tr>
+                    <th>MMFOWARP Version:</th>
+                    <td>{versions[customers[selectedCustomerIndex].name]?.mmfowarp.uat}</td>
+                    <td>{versions[customers[selectedCustomerIndex].name]?.mmfowarp.prod}</td>
+                  </tr>
+                  <tr>
+                    <th>MM Version:</th>
+                    <td>{versions[customers[selectedCustomerIndex].name]?.mm.uat}</td>
+                    <td>{versions[customers[selectedCustomerIndex].name]?.mm.prod}</td>
+                  </tr>
+                </>
+              )}
+            </tbody>
+          </table>
+        )}
       </div>
     </div>
   );
