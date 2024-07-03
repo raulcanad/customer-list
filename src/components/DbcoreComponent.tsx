@@ -75,19 +75,17 @@ const DbcoreComponent: React.FC = () => {
   return (
     <div className="dbcore-component">
       <div className="dbcore-component-content">
-      <div className="select-wrapper">
-      {selectedCustomerIndex === null && (
-    <p className="caption" style={{ textAlign: 'center', margin: '10px 0' }}>SCHEME-DB-VERSION</p>
-  )}
-        <select onChange={handleSelectChange} value={selectedCustomerIndex !== null ? selectedCustomerIndex : ''}>
-          <option value="" disabled>Select a customer</option>
-
-          {customers.map((customer, index) => (
-            <option key={index} value={index}>{customer.name}</option>
-          ))}
-        </select>
-       
-      </div>
+        <div className="select-wrapper">
+          {selectedCustomerIndex === null && (
+            <p className="caption" style={{ textAlign: 'center', margin: '10px 0' }}>SCHEME-DB-VERSION</p>
+          )}
+          <select onChange={handleSelectChange} value={selectedCustomerIndex !== null ? selectedCustomerIndex : ''}>
+            <option value="" disabled>Select a customer</option>
+            {customers.map((customer, index) => (
+              <option key={index} value={index}>{customer.name}</option>
+            ))}
+          </select>
+        </div>
         {selectedCustomerIndex !== null && (
           <table className="data-table">
             <caption className='caption'>SCHEME-DB-VERSION</caption>
