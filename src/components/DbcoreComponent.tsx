@@ -7,6 +7,7 @@ const DbcoreComponent: React.FC = () => {
     { name: 'SPOR', uat: 'http://localhost:5000/api/dbcore', prod: 'http://localhost:5001/api/dbcore' },
     { name: 'DAZU', uat: 'http://localhost:5002/api/dbcore', prod: 'http://localhost:5003/api/dbcore' },
     { name: 'TALO', uat: 'http://localhost:5004/api/dbcore', prod: 'http://localhost:5005/api/dbcore' },
+    { name: '10BET', uat: 'http://localhost:5006/api/dbcore', prod: 'http://localhost:5007/api/dbcore' },
     // Add more customers as needed
   ]);
 

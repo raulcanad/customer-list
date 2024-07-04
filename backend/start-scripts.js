@@ -6,7 +6,9 @@ const scripts = [
     'dazuUat.js',
     'dazuProd.js',
     'taloUat.js',
-    'taloProd.js'
+    'taloProd.js',
+    'tenBetUat.js',
+    'tenBetProd.js'
 ];
 
 scripts.forEach(script => {
