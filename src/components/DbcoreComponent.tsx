@@ -6,6 +6,7 @@ const DbcoreComponent: React.FC = () => {
   const [customers, setCustomers] = useState<{ name: string, uat: string, prod: string }[]>([
     { name: 'SPOR', uat: 'http://localhost:5000/api/dbcore', prod: 'http://localhost:5001/api/dbcore' },
     { name: 'DAZU', uat: 'http://localhost:5002/api/dbcore', prod: 'http://localhost:5003/api/dbcore' },
+    { name: 'TALO', uat: 'http://localhost:5004/api/dbcore', prod: 'http://localhost:5005/api/dbcore' },
     // Add more customers as needed
   ]);
 
