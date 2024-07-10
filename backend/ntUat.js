@@ -4,7 +4,7 @@ const cors = require('cors');
 const fs = require('fs/promises');
 
 const app = express();
-const port = process.env.PORT || 5014;
+const port = process.env.PORT || 5008;
 
 // Middleware
 app.use(cors());
@@ -13,7 +13,7 @@ app.use(cors());
 const dbConfig = {
   user: 'OPTIMA_RO',
   password: 'OP2014TIMA$1',
-  connectString: '((DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = NTOQA1HQ.nt-optima.local)(PORT = 1552)) (CONNECT_DATA = (SERVICE_NAME = NTOQA1HQ) (UR = A)))'
+  connectString: '(DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = NTOQA1HQ.nt-optima.local)(PORT = 1552)) (CONNECT_DATA = (SERVICE_NAME = NTOQA1HQ) (UR = A)))'
 };
 
 // Function to initialize OracleDB connection pool
