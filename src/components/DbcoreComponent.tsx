@@ -4,10 +4,17 @@ import '../style/DbcoreComponent.css';
 
 const DbcoreComponent: React.FC = () => {
   const [customers, setCustomers] = useState<{ name: string, uat: string, prod: string }[]>([
-    { name: 'SPOR', uat: 'http://localhost:5000/api/dbcore', prod: 'http://localhost:5001/api/dbcore' },
-    { name: 'DAZU', uat: 'http://localhost:5002/api/dbcore', prod: 'http://localhost:5003/api/dbcore' },
-    { name: 'TALO', uat: 'http://localhost:5004/api/dbcore', prod: 'http://localhost:5005/api/dbcore' },
-    { name: '10BET', uat: 'http://localhost:5006/api/dbcore', prod: 'http://localhost:5007/api/dbcore' },
+
+    { name: 'BALLERS', uat: 'https:///www-webapps-version-ball-uat.optima.com/api/dbcore', prod: 'https:///www-webapps-version-ball-prod.optima.com/api/dbcore' },
+    { name: 'BETSSON', uat: 'https:///www-webapps-version-beson-uat.optima.com/api/dbcore', prod: 'https:///www-webapps-version-beson-prod.optima.com/api/dbcore' },
+    { name: 'CAGE', uat: 'https:///www-webapps-version-cage-uat.optima.com/api/dbcore', prod: 'https:///www-webapps-version-cage-prod.optima.com/api/dbcore' },
+    { name: 'NT', uat: 'https:///www-webapps-version-nt-uat.optima.com/api/dbcore', prod: 'https:///www-webapps-version-nt-prod.optima.com/api/dbcore' },
+    { name: 'PENT', uat: 'https:///www-webapps-version-pent-uat.optima.com/api/dbcore', prod: 'https:///www-webapps-version-pent-prod.optima.com/api/dbcore' },
+    { name: 'SPOR', uat: 'https://www-webapps-version-spor-uat.optima.com/api/dbcore', prod: 'https:///www-webapps-version-spor-prod.optima.com/api/dbcore' },
+    { name: 'TALO', uat: 'https:///www-webapps-version-talo-uat.optima.com/api/dbcore', prod: 'https:///www-webapps-version-talo-prod.optima.com/api/dbcore' },
+    { name: '10BET', uat: 'https:///www-webapps-version-tenbet-uat.optima.com/api/dbcore', prod: 'https:///www-webapps-version-tenbet-prod.optima.com/api/dbcore' },
+    { name: 'ZAMBA', uat: 'https:///www-webapps-version-zamb-uat.optima.com/api/dbcore', prod: 'https:///www-webapps-version-zamb-prod.optima.com/api/dbcore' },
+
     // Add more customers as needed
   ]);
 
@@ -28,14 +35,14 @@ const DbcoreComponent: React.FC = () => {
     if (selectedCustomerIndex !== null) {
       setLoading(true);
       const { uat: dbcoreUatUrl, prod: dbcoreProdUrl } = customers[selectedCustomerIndex];
-      const mmfixedoddsUatUrl = 'http://localhost:5000/api/mmfixedodds';
-      const mmfixedoddsProdUrl = 'http://localhost:5001/api/mmfixedodds';
-      const mmtexasUatUrl = 'http://localhost:5000/api/mmtexas';
-      const mmtexasProdUrl = 'http://localhost:5001/api/mmtexas';
-      const mmfowarpUatUrl = 'http://localhost:5000/api/mmfowarp';
-      const mmfowarpProdUrl = 'http://localhost:5001/api/mmfowarp';
-      const mmUatUrl = 'http://localhost:5000/api/mm';
-      const mmProdUrl = 'http://localhost:5001/api/mm';
+      const mmfixedoddsUatUrl = 'https://www-webapps-version-spor-uat.optima.com/api/mmfixedodds';
+      const mmfixedoddsProdUrl = 'https:///www-webapps-version-spor-prod.optima.com/api/mmfixedodds';
+      const mmtexasUatUrl = 'https://www-webapps-version-spor-uat.optima.com/api/mmtexas';
+      const mmtexasProdUrl = 'https:///www-webapps-version-spor-prod.optima.com/api/mmtexas';
+      const mmfowarpUatUrl = 'https://www-webapps-version-spor-uat.optima.com/api/mmfowarp';
+      const mmfowarpProdUrl = 'https:///www-webapps-version-spor-prod.optima.com/api/mmfowarp';
+      const mmUatUrl = 'https://www-webapps-version-spor-uat.optima.com/api/mm';
+      const mmProdUrl = 'https:///www-webapps-version-spor-prod.optima.com/api/api/mm';
 
       Promise.all([
         axios.get(dbcoreUatUrl).then(response => response.data[0]), // Assuming data[0] is the version string

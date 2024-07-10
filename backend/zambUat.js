@@ -13,7 +13,7 @@ app.use(cors());
 const dbConfig = {
   user: 'OPTIMA_RO',
   password: 'OP2014TIMA$1',
-  connectString: '(DESCRIPTION = (ENABLE=BROKEN)(ADDRESS = (PROTOCOL = TCP)(HOST = DAZUUAHQ1.dev.local)(PORT = 1538)) (CONNECT_DATA = (SERVICE_NAME = HQ1_SN) (UR = A)))'
+  connectString: '(DESCRIPTION=(CONNECT_TIMEOUT=15)(RETRY_COUNT=3)(TRANSPORT_CONNECT_TIMEOUT=3)(ADDRESS_LIST =(ADDRESS = (PROTOCOL = TCP)(HOST = ZAMBUAHQ1.dev.local)(PORT = 1544))(LOAD_BALANCE =OFF))(CONNECT_DATA = (SERVICE_NAME = HQ1_SN) (UR = A)))'
 };
 
 // Function to initialize OracleDB connection pool

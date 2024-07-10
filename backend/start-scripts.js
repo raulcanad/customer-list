@@ -3,12 +3,22 @@ const { spawn } = require('child_process');
 const scripts = [
     'sporUat.js',
     'sporProd.js',
-    'dazuUat.js',
-    'dazuProd.js',
+    'zambUat.js',
+    'zambProd.js',
     'taloUat.js',
     'taloProd.js',
     'tenBetUat.js',
-    'tenBetProd.js'
+    'tenBetProd.js',
+    'ballUat',
+    'ballProd',
+    'bsonProd.js',
+    'bsonUat.js',
+    'cageProd.js',
+    'cageUat.js',
+    'ntProd.js',
+    'ntUat.js',
+    'pentUat.js',
+    'pentProd.js',
 ];
 
 scripts.forEach(script => {
